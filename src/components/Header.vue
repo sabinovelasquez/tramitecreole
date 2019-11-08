@@ -1,6 +1,6 @@
 <template lang='pug'>
   header
-    h1 Header
+    h1 Test CI
 </template>
 
 <script>
