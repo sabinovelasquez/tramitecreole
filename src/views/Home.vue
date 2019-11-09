@@ -1,5 +1,5 @@
 <template lang='pug'>
-  .content
+  .content(sticky-container)
     Header
     Body
     Footer

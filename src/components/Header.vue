@@ -7,7 +7,7 @@
           img.logo-text(svg-inline, src='@/assets/img/southernlands-logo-text.svg', alt='Southernlands')
       .container.md-layout.md-alignment-center
         p.tagline Exportadores de fruta para Asia, Emiratos Árabes y el resto del mundo.
-    .nav-bar
+    .nav-bar(v-sticky, sticky-offset='{top: 0}')
       .container
         md-menu.menu(md-size='small', md-direction='bottom-start')
           md-button.md-icon-button(md-menu-trigger)
