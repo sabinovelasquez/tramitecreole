@@ -10,11 +10,11 @@
     .nav-bar(v-sticky, sticky-offset='{top: 0}')
       .container
         md-menu.menu(md-size='small', md-direction='bottom-start')
-          md-button.md-icon-button(md-menu-trigger)
+          md-button.md-icon-button(md-menu-trigger, v-scroll-to='"#app"')
             img.logo-menu(svg-inline, src='@/assets/img/cherry-logo.svg')
-          md-button(md-menu-trigger) Nosotros
-          md-button(md-menu-trigger) Catálogo
-          md-button(md-menu-trigger) Contacto
+          md-button(md-menu-trigger, v-scroll-to='"#us"') Nosotros
+          md-button(md-menu-trigger, v-scroll-to='"#catalog"') Catálogo
+          md-button(md-menu-trigger, v-scroll-to='"#contact"') Contacto
         .langs.right
           a.disabled(@click='changeLang("en")') EN 
           | / 
@@ -37,7 +37,7 @@ export default {
   background-color: #1A1A1A;
   .menu{
     .md-button{
-      margin-left: 8px;
+      margin-left: 12px;
     }
   }
 }
@@ -48,7 +48,7 @@ header.bg{
   background-position: center center;
   .logo {
     margin: 80px auto 0;
-    width: 120px;
+    width: 180px;
     text-align: center;
     .logo-cherry{
       width: 40px;

@@ -1,6 +1,6 @@
 <template lang='pug'>
 .cont
-  section.us
+  section.us#us
     .container
       .md-layout.md-gutter.md-alignment-center-center
         .md-layout-item.md-small-size-100.us-av
@@ -8,7 +8,7 @@
         .md-layout-item.md-small-size-100(v-if='content[0]')
           h2.title {{content[0].us['es'].title}}
           p {{content[0].us['es'].content}}
-  section.catalog
+  section.catalog#catalog
     .container
       .md-layout.md-alignment-center-center
         .md-layout-item
@@ -16,7 +16,7 @@
       .md-layout.md-alignment-center-center
         p Under construction...
 
-  section.contact
+  section.contact#contact
     .container
       .md-layout.md-gutter.md-alignment-center-center
         .md-layout-item.md-small-size-100
