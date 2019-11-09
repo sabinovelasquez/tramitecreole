@@ -5,11 +5,9 @@
       .md-layout.md-gutter.md-alignment-center-center
         .md-layout-item.md-small-size-100.us-av
           img(src='@/assets/img/us-av.png', alt='Us')
-        .md-layout-item.md-small-size-100
-          h2.title Sobre Nosotros
-          p Contamos con la confianza y compromiso de nuestros productores y proveedores orientado a satisfacer los requerimientos y exigencias de cada uno de nuestros mercados.
-          p Nuestro principal objetivo es entregar a nuestros clientes, con quienes hemos desarrollado importantes lazos comerciales, un servicio cordial y personalizado. Toda nuestra fruta cumple con las certificaciones y protocolos exigidos internacionalmente.
-          p Apostamos por la apertura de nuevos mercados para nuestra fruta y seguir impulsando nuestro continuo crecimiento.
+        .md-layout-item.md-small-size-100(v-if='content[0]')
+          h2.title {{content[0].us['es'].title}}
+          p {{content[0].us['es'].content}}
   section.catalog
     .container
       .md-layout.md-alignment-center-center
@@ -60,8 +58,19 @@
 </template>
 
 <script>
+import { db } from '@/firebase'
+
 export default {
-  name: 'Body'
+  name: 'Body',
+  data() {
+    return {
+      fbMsg: '',
+      content: []
+    }
+  },
+  firestore: {
+    content: db.collection('content'),
+  }
 }
 </script>
 

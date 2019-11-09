@@ -24,7 +24,12 @@ $dark-grey: #1E1E1E;
 h1, h2, h3, h4, h5{
   font-family: 'Montserrat', sans-serif;
 }
-
+.right{
+  float: right;
+}
+.left{
+  float: left;
+}
 .container {
   margin: auto;
   padding: 15px;

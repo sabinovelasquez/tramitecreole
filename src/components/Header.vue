@@ -15,11 +15,20 @@
           md-button(md-menu-trigger) Nosotros
           md-button(md-menu-trigger) Catálogo
           md-button(md-menu-trigger) Contacto
+        .langs.right
+          a.disabled(@click='changeLang("en")') EN 
+          | / 
+          a(@click='changeLang("es")') ES
 </template>
 
 <script>
 export default {
-  name: 'Header'
+  name: 'Header',
+  methods: {
+    changeLang(val) {
+      this.$defaultLang = val
+    }
+  }
 }
 </script>
 
@@ -51,6 +60,15 @@ header.bg{
   }
   .tagline{
     text-shadow: -1px 1px 0px rgba(0, 0, 0, 1);
+  }
+}
+.langs{
+  line-height: 40px;
+  a{
+    cursor: pointer;
+    &.disabled{
+      cursor: not-allowed;
+    }
   }
 }
 img.logo-menu{
