@@ -4,8 +4,6 @@
 </template>
 
 <style lang='scss'>
-@import '@/assets/global.scss'
-
 </style>
 
 <script>

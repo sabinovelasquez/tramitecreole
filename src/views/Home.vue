@@ -5,7 +5,7 @@
     Footer
 </template>
 
-<style lang="scss">
+<style lang='scss'>
 </style>
 
 <script>
