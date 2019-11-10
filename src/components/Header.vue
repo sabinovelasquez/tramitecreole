@@ -38,6 +38,10 @@ export default {
   .menu{
     .md-button{
       margin-left: 12px;
+      @media (max-width: 960px){
+        margin-left: 0;
+        // font-size: 11px;
+      }
     }
   }
 }
@@ -63,7 +67,7 @@ header.bg{
   }
 }
 .langs{
-  line-height: 40px;
+  line-height: 36px;
   a{
     cursor: pointer;
     &.disabled{
