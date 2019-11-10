@@ -10,8 +10,6 @@ import '@/assets/global.scss'
 
 import { firestorePlugin } from 'vuefire'
 
-Vue.prototype.$langs = ['es', 'en']
-
 Vue.use(VueMaterial)
 Vue.use(VueScrollTo, {offset: -70})
 Vue.use(Sticky)

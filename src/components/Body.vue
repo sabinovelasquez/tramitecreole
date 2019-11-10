@@ -6,15 +6,16 @@
         .md-layout-item.md-small-size-100.us-av
           img(src='@/assets/img/us-av.png', alt='Us')
         .md-layout-item.md-small-size-100(v-if='content[0]')
-          h2.title {{content[0].us['es'].title}}
-          p {{content[0].us['es'].content}}
+          h2.title {{content[0].us[lang].title}}
+          p {{content[0].us[lang].content}}
   section.catalog#catalog
     .container
       .md-layout.md-alignment-center-center
         .md-layout-item
           h2.title Nuestros productos
-      .md-layout.md-alignment-center-center
-        p Under construction...
+      .md-layout.md-alignment-center-center(v-if='content[0]')
+        md-chip.md-primary(md-clickable) Todos
+        md-chip.md-accent(md-clickable, v-for='(prod, key) in content[0].catalog[lang].prods', :key='key') {{prod.title}}
 
   section.contact#contact
     .container
@@ -59,6 +60,7 @@
 
 <script>
 import { db } from '@/firebase'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'Body',
@@ -67,6 +69,9 @@ export default {
       fbMsg: '',
       content: []
     }
+  },
+  computed: {
+    ...mapGetters('lang', ['lang'])
   },
   firestore: {
     content: db.collection('content'),

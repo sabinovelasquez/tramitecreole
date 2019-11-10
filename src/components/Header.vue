@@ -16,17 +16,23 @@
           md-button(md-menu-trigger, v-scroll-to='"#catalog"') Catálogo
           md-button(md-menu-trigger, v-scroll-to='"#contact"') Contacto
         .langs.right
-          a.disabled(@click='changeLang("en")') EN 
+          a(@click='changeLang("en")') EN 
           | / 
           a(@click='changeLang("es")') ES
 </template>
 
 <script>
+import { mapActions, mapGetters } from 'vuex'
+
 export default {
   name: 'Header',
+  computed: {
+    ...mapGetters('lang', ['lang'])
+  },
   methods: {
+    ...mapActions('lang', ['setLang']),
     changeLang(val) {
-      this.$defaultLang = val
+      this.setLang({lang: val})
     }
   }
 }
@@ -40,7 +46,6 @@ export default {
       margin-left: 12px;
       @media (max-width: 960px){
         margin-left: 0;
-        // font-size: 11px;
       }
     }
   }

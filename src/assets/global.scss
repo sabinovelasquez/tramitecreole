@@ -5,12 +5,13 @@
 
 $primary-color: #EDD12E;
 $secondary-color: #ed3156;
-
+$accent: rgb(36, 36, 36);
 $dark-grey: #1E1E1E;
 
 @include md-register-theme('default', (
   primary: $primary-color,
-  accent: $secondary-color,
+  secondary: $secondary-color,
+  accent: $accent,
   theme: dark
 ));
 

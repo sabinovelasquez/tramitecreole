@@ -12,8 +12,3 @@ export const db = firebase
   appId: "1:482315407690:web:c0c44da93e932fb4f371b3",
   measurementId: "G-X2VYBEMCN7"
 }).firestore()
-
-// const { TimeStamp, GeoPoint } = firebase.firestore
-// export { TimeStamp, GeoPoint }
-
-// db.settings({ timestampsInSnapshots: true })
