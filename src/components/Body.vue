@@ -5,48 +5,48 @@
       .md-layout.md-gutter.md-alignment-center-center
         .md-layout-item.md-small-size-100.us-av
           img(src='@/assets/img/us-av.png', alt='Us')
-        .md-layout-item.md-small-size-100(v-if='content[0]')
-          h2.title {{content[0].us[lang].title}}
-          p {{content[0].us[lang].content}}
+        .md-layout-item.md-small-size-100(v-if='us[lang]')
+          h2.title {{us[lang].title}}
+          p(v-for='item in us[lang].content') {{item}}
   section.catalog#catalog
     .container
       .md-layout.md-alignment-center-center
-        .md-layout-item
-          h2.title Nuestros productos
-      .md-layout.md-alignment-center-center(v-if='content[0]')
-        md-chip.md-primary(md-clickable) Todos
-        md-chip.md-accent(md-clickable, v-for='(prod, key) in content[0].catalog[lang].prods', :key='key') {{prod.title}}
+        .md-layout-item(v-if='catalog_info[lang]')
+          h2.title {{catalog_info[lang].title}}
+      .md-layout.md-alignment-center-center(v-if='product_tags[lang] && catalog_info[lang]')
+        md-chip.md-primary(md-clickable) {{catalog_info[lang].all}}
+        md-chip.md-accent(md-clickable, v-for='prod in product_tags[lang]', :key='prod.id') {{prod.title}}
 
   section.contact#contact
     .container
       .md-layout.md-gutter.md-alignment-center-center
         .md-layout-item.md-small-size-100
-          form.md-layout
+          form.md-layout(v-if='contact[lang]')
             md-card.md-layout-item
               md-card-header
-                .md-title Contáctenos
+                .md-title {{contact[lang].title}}
               md-card-content
                 .md-layout.md-gutter
                   .md-layout-item
                     md-field
-                      label(for='first-name') Nombre - Apellido
+                      label(for='first-name') {{contact[lang].name}}
                       md-input(name='first-name')
                       span.md-error Campo requerido
                   .md-layout-item
                     md-field
-                      label(for='first-name') Email
+                      label(for='first-name') {{contact[lang].email}}
                       md-input(name='email')
                       span.md-error Campo requerido
                 .md-layout.md-gutter
                   .md-layout-item
                     md-field
-                      label(for='subject') Asunto
+                      label(for='subject') {{contact[lang].subject}}
                       md-input(name='subject')
                       span.md-error Campo requerido
                 .md-layout.md-gutter
                   .md-layout-item
                     md-field
-                      label(for='subject') Mensaje
+                      label(for='subject') {{contact[lang].body}}
                       md-textarea(name='subject', md-autogrow)
                       span.md-error Campo requerido
                 .md-layout.md-gutter
@@ -70,8 +70,10 @@ export default {
   name: 'Body',
   data() {
     return {
-      fbMsg: '',
-      content: [],
+      us: {},
+      catalog_info: {},
+      product_tags: {},
+      contact: {},
       message: {
         to: 'sabino@front.cl',
         from: {
@@ -88,19 +90,22 @@ export default {
     ...mapGetters('lang', ['lang'])
   },
   firestore: {
-    content: db.collection('content'),
+    us: db.collection('sections').doc('us'),
+    contact: db.collection('sections').doc('contact'),
+    catalog_info: db.collection('catalog').doc('info'),
+    product_tags: db.collection('catalog').doc('product-tags')
   },
   methods: {
     sendMail() {
-      console.log('triggered')
-      SGmail
-        .send(this.message)
-        .then((sent) => {
-          console.log(sent)
-        })
-        .catch(error => {
-          console.error(error.toString())
-        })
+      // console.log('triggered')
+      // SGmail
+      //   .send(this.message)
+      //   .then((sent) => {
+      //     console.log(sent)
+      //   })
+      //   .catch(error => {
+      //     console.error(error.toString())
+      //   })
     }
   }
 }

@@ -5,7 +5,7 @@ Vue.use(Vuex)
 
 const modules = {}
 
-const moduleNames = [ 'lang' ]
+const moduleNames = [ 'lang', 'contentStore' ]
 
 moduleNames.forEach(name => {
   let module = require(`@/storeModules/${name}`)

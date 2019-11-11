@@ -6,15 +6,13 @@
           img.logo-cherry(svg-inline, src='@/assets/img/cherry-logo.svg', alt='Southernlands')
           img.logo-text(svg-inline, src='@/assets/img/southernlands-logo-text.svg', alt='Southernlands')
       .container.md-layout.md-alignment-center
-        p.tagline Exportadores de fruta para Asia, Emiratos Árabes y el resto del mundo.
+        p.tagline {{main_title[lang]}}
     .nav-bar(v-sticky, sticky-offset='{top: 0}')
       .container
         md-menu.menu(md-size='small', md-direction='bottom-start')
           md-button.md-icon-button(md-menu-trigger, v-scroll-to='"#app"')
             img.logo-menu(svg-inline, src='@/assets/img/cherry-logo.svg')
-          md-button(md-menu-trigger, v-scroll-to='"#us"') Nosotros
-          md-button(md-menu-trigger, v-scroll-to='"#catalog"') Catálogo
-          md-button(md-menu-trigger, v-scroll-to='"#contact"') Contacto
+          md-button(v-for='item in main_menu[lang]', :key='item.id', v-scroll-to='`#${item.link}`') {{item.title}}
         .langs.right
           a(@click='changeLang("en")') EN 
           | / 
@@ -22,10 +20,17 @@
 </template>
 
 <script>
+import { db } from '@/firebase'
 import { mapActions, mapGetters } from 'vuex'
 
 export default {
   name: 'Header',
+  data() {
+    return {
+      main_title: [],
+      main_menu: []
+    }
+  },
   computed: {
     ...mapGetters('lang', ['lang'])
   },
@@ -34,7 +39,11 @@ export default {
     changeLang(val) {
       this.setLang({lang: val})
     }
-  }
+  },
+  firestore: {
+    main_title: db.collection('general').doc('main-title'),
+    main_menu: db.collection('general').doc('main-menu')
+  }  
 }
 </script>
 
