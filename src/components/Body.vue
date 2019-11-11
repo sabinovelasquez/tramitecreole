@@ -51,7 +51,7 @@
                       span.md-error Campo requerido
                 .md-layout.md-gutter
                   .md-layout-item
-                    md-button.md-raised.md-primary Enviar
+                    md-button.md-raised.md-primary(@click='sendMail()') Enviar
         .md-layout-item.md-small-size-100
           GmapMap.map(:center='{lat:-33.4235464, lng:-70.6206422}', :zoom='17', map-type-id='terrain')
             GmapMarker(:position='{lat:-33.4235509, lng:-70.6184535}', :clickable='true', :draggable='true')
@@ -61,13 +61,27 @@
 <script>
 import { db } from '@/firebase'
 import { mapGetters } from 'vuex'
+import defaultConfig from '@/config/defaultConfig'
+
+const SGmail = require('@sendgrid/mail')
+SGmail.setApiKey(defaultConfig.SENDGRID_API_KEY) 
 
 export default {
   name: 'Body',
   data() {
     return {
       fbMsg: '',
-      content: []
+      content: [],
+      message: {
+        to: 'sabino@front.cl',
+        from: {
+          email: 'sabino@front.cl',
+          name: 'Southern Lands Chile'
+        },
+        subject: 'Sendgrid Subject',
+        text: 'and easy to do anywhere, even with Node.js',
+        html: '<strong>and easy to do anywhere, even with Node.js</strong>'
+      }
     }
   },
   computed: {
@@ -75,6 +89,19 @@ export default {
   },
   firestore: {
     content: db.collection('content'),
+  },
+  methods: {
+    sendMail() {
+      console.log('triggered')
+      SGmail
+        .send(this.message)
+        .then((sent) => {
+          console.log(sent)
+        })
+        .catch(error => {
+          console.error(error.toString())
+        })
+    }
   }
 }
 </script>
