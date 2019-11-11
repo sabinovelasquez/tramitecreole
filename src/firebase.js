@@ -1,9 +1,10 @@
 import firebase from 'firebase/app'
 import 'firebase/firestore'
+import defaultConfig from './config/defaultConfig'
 
 export const db = firebase
   .initializeApp({
-  apiKey: "AIzaSyCsdAHx_iho6HCG9jojJx4wNNA9uOHMRe4",
+  apiKey: defaultConfig.FIREBASE_API_KEY,
   authDomain: "southernlands.firebaseapp.com",
   databaseURL: "https://southernlands.firebaseio.com",
   projectId: "southernlands",
