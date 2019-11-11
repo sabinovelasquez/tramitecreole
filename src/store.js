@@ -3,14 +3,21 @@ import Vuex from 'vuex'
 
 Vue.use(Vuex)
 
-export default new Vuex.Store({
-  state: {
+const modules = {}
 
-  },
-  mutations: {
+const moduleNames = [ 'lang', 'contentStore' ]
 
-  },
-  actions: {
+moduleNames.forEach(name => {
+  let module = require(`@/storeModules/${name}`)
 
+  modules[name] = {
+    namespaced: true,
+    ...module.default
   }
 })
+
+const store = new Vuex.Store({
+  modules
+})
+
+export default store
