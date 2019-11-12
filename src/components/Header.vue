@@ -3,10 +3,10 @@
     header.bg
       .container.md-layout.md-alignment-center
         .logo
-          img.logo-cherry(svg-inline, src='@/assets/img/cherry-logo.svg', alt='Southernlands')
-          img.logo-text(svg-inline, src='@/assets/img/southernlands-logo-text.svg', alt='Southernlands')
+          img.logo-cherry(svg-inline, src='@/assets/img/cherry-logo.svg', alt='Southern Lands')
+          img.logo-text(svg-inline, src='@/assets/img/southernlands-logo-text.svg', alt='Southern Lands')
       .container.md-layout.md-alignment-center
-        p.tagline {{main_title[lang]}}
+        p.tagline.niconne {{main_title[lang]}}
     .nav-bar(v-sticky, sticky-offset='{top: 0}')
       .container
         md-menu.menu(md-size='small', md-direction='bottom-start')
@@ -43,7 +43,7 @@ export default {
   firestore: {
     main_title: db.collection('general').doc('main-title'),
     main_menu: db.collection('general').doc('main-menu')
-  }  
+  }
 }
 </script>
 
@@ -78,6 +78,7 @@ header.bg{
   }
   .tagline{
     text-shadow: -1px 1px 0px rgba(0, 0, 0, 1);
+    font-size: 24px;
   }
 }
 .langs{

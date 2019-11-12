@@ -5,6 +5,7 @@
       .md-layout.md-gutter.md-alignment-center-center
         .md-layout-item.md-small-size-100.us-av
           img(src='@/assets/img/us-av.png', alt='Us')
+          p.text-center.italic.md-primary {{us[lang].underimg}}
         .md-layout-item.md-small-size-100(v-if='us[lang]')
           h2.title {{us[lang].title}}
           p(v-for='item in us[lang].content') {{item}}
@@ -53,27 +54,33 @@
                   .md-layout-item
                     md-button.md-raised.md-primary(@click='sendMail()') Enviar
         .md-layout-item.md-small-size-100
-          GmapMap.map(:center='{lat:-33.4235464, lng:-70.6206422}', :zoom='17', map-type-id='terrain')
-            GmapMarker(:position='{lat:-33.4235509, lng:-70.6184535}', :clickable='true', :draggable='true')
-</GmapMap>
+          GmapMap.map(:center='{lat:-33.4235464, lng:-70.6206422}', :zoom='17', :options='{styles: mapOptions}' map-type-id='terrain')
+            GmapMarker(:position='{lat:-33.4235509, lng:-70.6184535}', :clickable='true', :draggable='true', :icon='{ url: require("@/assets/img/cherry-logo.svg")}')
 </template>
 
 <script>
 import { db } from '@/firebase'
 import { mapGetters } from 'vuex'
 import defaultConfig from '@/config/defaultConfig'
+import mapStyles from '@/config/mapStyles'
 
 const SGmail = require('@sendgrid/mail')
 SGmail.setApiKey(defaultConfig.SENDGRID_API_KEY) 
 
 export default {
   name: 'Body',
+  created() {
+    this.mapOptions = mapStyles.style
+  },
   data() {
     return {
+      mapOptions: [],
       us: {},
       catalog_info: {},
       product_tags: {},
       contact: {},
+      sent: false,
+      mail_error: null,
       message: {
         to: 'sabino@front.cl',
         from: {
@@ -97,15 +104,15 @@ export default {
   },
   methods: {
     sendMail() {
-      // console.log('triggered')
-      // SGmail
-      //   .send(this.message)
-      //   .then((sent) => {
-      //     console.log(sent)
-      //   })
-      //   .catch(error => {
-      //     console.error(error.toString())
-      //   })
+      console.log('triggered')
+      SGmail
+        .send(this.message)
+        .then((sent) => {
+          console.log(sent)
+        })
+        .catch(error => {
+          console.error(error.toString())
+        })
     }
   }
 }

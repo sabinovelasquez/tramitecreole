@@ -2,7 +2,9 @@
   footer
     .container.md-layout.md-alignment-center(v-if='!loading')
       .md-layout-item.md-small-size-100
-        h4 {{footer.address[lang].title}}
+        h4
+          img(svg-inline, src='@/assets/img/southernlands-logo-text.svg', alt='Southern Lands')
+        //- h4 {{footer.address[lang].title}}
         p(v-for='item in footer.address[lang].content') {{item}}
         p
           a(href='mailto:marcela@southernlands.cl') info@southernlands.cl
