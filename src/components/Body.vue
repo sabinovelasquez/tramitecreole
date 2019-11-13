@@ -1,6 +1,6 @@
 <template lang='pug'>
 .cont(v-if='!loading')
-  h1 {{mail_status}}
+  //- h1 {{mail_status}}
   section.us#us
     .container
       .md-layout.md-gutter.md-alignment-center-center
