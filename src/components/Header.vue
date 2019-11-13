@@ -1,22 +1,29 @@
 <template lang='pug'>
   section
-    header.bg
-      .container.md-layout.md-alignment-center
-        .logo
-          img.logo-cherry(svg-inline, src='@/assets/img/cherry-logo.svg', alt='Southernlands')
-          img.logo-text(svg-inline, src='@/assets/img/southernlands-logo-text.svg', alt='Southernlands')
-      .container.md-layout.md-alignment-center
-        p.tagline {{main_title[lang]}}
-    .nav-bar(v-sticky, sticky-offset='{top: 0}')
-      .container
-        md-menu.menu(md-size='small', md-direction='bottom-start')
-          md-button.md-icon-button(md-menu-trigger, v-scroll-to='"#app"')
-            img.logo-menu(svg-inline, src='@/assets/img/cherry-logo.svg')
-          md-button(v-for='item in main_menu[lang]', :key='item.id', v-scroll-to='`#${item.link}`') {{item.title}}
-        .langs.right
-          a(@click='changeLang("en")') EN 
-          | / 
-          a(@click='changeLang("es")') ES
+    .all(v-if='!loading')
+      header.bg
+        .container.md-layout.md-alignment-center
+          .logo
+            img.logo-cherry(svg-inline, src='@/assets/img/cherry-logo.svg', alt='Southern Lands')
+            img.logo-text(svg-inline, src='@/assets/img/southernlands-logo-text.svg', alt='Southern Lands')
+        .container.md-layout.md-alignment-center
+          p.tagline.niconne {{main_title[lang]}}
+      .nav-bar(v-sticky, sticky-offset='{top: 0}')
+        .container
+          md-menu.menu(md-size='small', md-direction='bottom-start')
+            md-button.md-icon-button(md-menu-trigger, v-scroll-to='"#app"')
+              img.logo-menu(svg-inline, src='@/assets/img/cherry-logo.svg')
+            md-button(v-for='item in main_menu[lang]', :key='item.id', v-scroll-to='`#${item.link}`') {{item.title}}
+          .langs.right
+            a(@click='changeLang("en")') EN 
+            | / 
+            a(@click='changeLang("es")') ES
+    .md-layout.md-alignment-center-center.loading(v-else)
+      .main-loading
+        img(svg-inline, src='@/assets/img/cherry-logo.svg', alt='Southern Lands')
+        h2.main-loading.niconne {{ lang == 'en' ? 'Cargando info...' : 'Loading info...' }}
+        
+  
 </template>
 
 <script>
@@ -27,9 +34,20 @@ export default {
   name: 'Header',
   data() {
     return {
+      loading: true,
       main_title: [],
       main_menu: []
     }
+  },
+  mounted() {
+    this.$bind('main_title', db.collection('general').doc('main-title'))
+    this.$bind('main_menu', db.collection('general').doc('main-menu'))
+      .then( () => {
+        this.loading = false
+      })
+      .catch((error) => {
+        this.error = error
+      })
   },
   computed: {
     ...mapGetters('lang', ['lang'])
@@ -39,15 +57,25 @@ export default {
     changeLang(val) {
       this.setLang({lang: val})
     }
-  },
-  firestore: {
-    main_title: db.collection('general').doc('main-title'),
-    main_menu: db.collection('general').doc('main-menu')
-  }  
+  }
 }
 </script>
 
 <style scoped lang='scss'>
+@import '@/assets/global.scss';
+.loading{
+  position: fixed;
+  width: 100%;
+  min-height: 100vh;
+  background: url('../assets/img/simple_dashed.png') repeat;
+  top: 0;
+  z-index: 999;
+  .main-loading{
+    color: $primary-color;
+    font-size: 24px;
+    text-align: center;
+  }
+}
 .nav-bar{
   background-color: #1A1A1A;
   .menu{
@@ -78,6 +106,7 @@ header.bg{
   }
   .tagline{
     text-shadow: -1px 1px 0px rgba(0, 0, 0, 1);
+    font-size: 24px;
   }
 }
 .langs{
