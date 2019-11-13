@@ -5,8 +5,11 @@
         h4
           img(svg-inline, src='@/assets/img/southernlands-logo-text.svg', alt='Southern Lands')
         //- h4 {{footer.address[lang].title}}
-        p(v-for='item in footer.address[lang].content') {{item}}
+        p(v-for='(item, key) in footer.address[lang].content')
+          md-icon.mar-right(v-if='footer.address[lang].content.length == (key + 1)') phone
+          | {{item}}
         p
+          md-icon.mar-right mail
           a(href='mailto:marcela@southernlands.cl') info@southernlands.cl
       .md-layout-item.md-small-size-100
         h4 {{footer.certification[lang].title}}
@@ -45,4 +48,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.mar-right{
+  margin-right: 8px;
+}
 </style>

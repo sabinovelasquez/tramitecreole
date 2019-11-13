@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat:400,700|Raleway&display=swap');
 @import url('https://fonts.googleapis.com/css?family=Niconne&display=swap');
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
 
 @import '~vue-material/dist/vue-material.min.css';
 @import '~vue-material/dist/theme/engine';
@@ -17,7 +18,6 @@ $dark-grey: #1E1E1E;
 ));
 
 @import "~vue-material/dist/theme/all";
-
 
 *{
   font-family: 'Raleway', sans-serif;
