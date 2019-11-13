@@ -1,4 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat:400,700|Raleway&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Niconne&display=swap');
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
 
 @import '~vue-material/dist/vue-material.min.css';
 @import '~vue-material/dist/theme/engine';
@@ -17,7 +19,6 @@ $dark-grey: #1E1E1E;
 
 @import "~vue-material/dist/theme/all";
 
-
 *{
   font-family: 'Raleway', sans-serif;
 }
@@ -30,6 +31,15 @@ h1, h2, h3, h4, h5{
 }
 .left{
   float: left;
+}
+.text-center{
+  text-align: center;
+}
+.niconne{
+  font-family: 'Niconne', cursive;
+}
+.italic{
+  font-style: italic;
 }
 .container {
   margin: auto;
