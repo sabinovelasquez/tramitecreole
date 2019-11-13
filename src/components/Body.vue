@@ -1,5 +1,6 @@
 <template lang='pug'>
 .cont(v-if='!loading')
+  h1 {{mail_status}}
   section.us#us
     .container
       .md-layout.md-gutter.md-alignment-center-center
@@ -97,6 +98,7 @@ export default {
   data() {
     return {
       cat_id: 0,
+      mail_status: null,
       mapOptions: [],
       loading: true,
       us: {},
@@ -182,16 +184,16 @@ export default {
       contact: {},
       sent: false,
       mail_error: null,
-      // message: {
-      //   to: 'sabino@front.cl',
-      //   from: {
-      //     email: 'sabino@front.cl',
-      //     name: 'Southern Lands Chile'
-      //   },
-      //   subject: 'Sendgrid Subject',
-      //   text: 'and easy to do anywhere, even with Node.js',
-      //   html: '<strong>and easy to do anywhere, even with Node.js</strong>'
-      // }
+      message: {
+        to: 'sabino@front.cl',
+        from: {
+          email: 'sabino@front.cl',
+          name: 'Southern Lands Chile'
+        },
+        subject: 'Sendgrid Subject',
+        text: 'and easy to do anywhere, even with Node.js',
+        html: '<strong>and easy to do anywhere, even with Node.js</strong>'
+      }
     }
   },
   computed: {
@@ -203,14 +205,14 @@ export default {
     },
     sendMail() {
       // console.log('triggered')
-      // SGmail
-      //   .send(this.message)
-      //   .then((sent) => {
-      //     console.log(sent)
-      //   })
-      //   .catch(error => {
-      //     console.error(error.toString())
-      //   })
+      SGmail
+        .send(this.message)
+        .then((sent) => {
+          this.mail_status = sent
+        })
+        .catch(error => {
+          this.mail_status = error.toString()
+        })
     }
   }
 }
