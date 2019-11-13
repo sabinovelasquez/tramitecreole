@@ -74,11 +74,11 @@
 <script>
 import { db } from '@/firebase'
 import { mapGetters } from 'vuex'
-import defaultConfig from '@/config/defaultConfig'
+// import defaultConfig from '@/config/defaultConfig'
 import mapStyles from '@/config/mapStyles'
 
 const SGmail = require('@sendgrid/mail')
-SGmail.setApiKey(defaultConfig.SENDGRID_API_KEY) 
+SGmail.setApiKey(process.env.VUE_APP_SENDGRID_API_KEY)
 
 export default {
   name: 'Body',
@@ -184,15 +184,31 @@ export default {
       contact: {},
       sent: false,
       mail_error: null,
-      message: {
-        to: 'sabino@front.cl',
-        from: {
-          email: 'sabino@front.cl',
-          name: 'Southern Lands Chile'
+      sendInfo: {
+        'personalizations': [
+          {
+            'to': [
+              {
+                'email': 'sabino@southernlands.cl',
+                'name': 'Southernlands'
+              }
+            ],
+            'dynamic_template_data': {
+              'subject': 'Test de template',
+              'body': 'Template de sendgrid, test de envío.'
+            },
+            'subject': 'Contact Form'
+          }
+        ],
+        'from': {
+          'email': 'info@southernlands.cl',
+          'name': 'Southern Lands'
         },
-        subject: 'Sendgrid Subject',
-        text: 'and easy to do anywhere, even with Node.js',
-        html: '<strong>and easy to do anywhere, even with Node.js</strong>'
+        'reply_to': {
+          'email': 'info@southernlands.cl',
+          'name': 'Southern Lands'
+        },
+        'template_id': 'd-1f5a48507b26419c83accd4cde0d00ea'
       }
     }
   },
@@ -206,7 +222,7 @@ export default {
     sendMail() {
       // console.log('triggered')
       SGmail
-        .send(this.message)
+        .send(this.sendInfo)
         .then((sent) => {
           this.mail_status = sent
         })
