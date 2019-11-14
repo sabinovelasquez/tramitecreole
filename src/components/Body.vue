@@ -47,7 +47,7 @@
               md-card-content
                 .md-layout.md-gutter
                   .md-layout-item
-                    md-field.md-invalid(:class='messageClass')
+                    md-field(:class='messageClass')
                       label(for='first-name') {{contact[lang].name}}
                       md-input(v-model='email.name', name='first-name')
                       span.md-error {{lang == 'es' ? 'Por favor complete este campo' : 'Please fill out this field.'}}
