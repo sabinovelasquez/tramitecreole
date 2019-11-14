@@ -1,6 +1,5 @@
 <template lang='pug'>
 .cont(v-if='!loading')
-  //- h1 {{mail_status}}
   section.us#us
     .container
       .md-layout.md-gutter.md-alignment-center-center
@@ -35,34 +34,40 @@
     .container
       .md-layout.md-gutter.md-alignment-center-center
         .md-layout-item.md-small-size-100
-          form.md-layout
+          .md-layout(v-if='sent && mail_status=="OK"')
+            h3.email-title {{lang == 'es' ? 'Hemos recibido su correo' : 'Your email has been sent'}}
+            p.email-body {{lang == 'es' ? 'Nos contactaremos con Usted a la brevedad.' : 'We will contact you ASAP.'}}
+          .md-layout(v-if='sent && mail_error')
+            h3.email-title {{lang == 'es' ? 'Ha ocurrido un error' : 'Cannot send mail'}}
+            p.email-body {{lang == 'es' ? 'Por favor verifique su conexión e intente nuevamente.' : 'Please check your connection and try again'}}
+          form.md-layout(v-if='!sent')
             md-card.md-layout-item
               md-card-header
                 .md-title {{contact[lang].title}}
               md-card-content
                 .md-layout.md-gutter
                   .md-layout-item
-                    md-field
+                    md-field.md-invalid(:class='messageClass')
                       label(for='first-name') {{contact[lang].name}}
-                      md-input(name='first-name')
-                      span.md-error Campo requerido
+                      md-input(v-model='email.name', name='first-name')
+                      span.md-error {{lang == 'es' ? 'Por favor complete este campo' : 'Please fill out this field.'}}
                   .md-layout-item
-                    md-field
+                    md-field(:class='messageClass')
                       label(for='first-name') {{contact[lang].email}}
-                      md-input(name='email')
-                      span.md-error Campo requerido
+                      md-input(v-model='email.email', name='email')
+                      span.md-error {{lang == 'es' ? 'Por favor complete este campo' : 'Please fill out this field.'}}
                 .md-layout.md-gutter
                   .md-layout-item
-                    md-field
+                    md-field(:class='messageClass')
                       label(for='subject') {{contact[lang].subject}}
-                      md-input(name='subject')
-                      span.md-error Campo requerido
+                      md-input(v-model='email.subject', name='subject')
+                      span.md-error {{lang == 'es' ? 'Por favor complete este campo' : 'Please fill out this field.'}}
                 .md-layout.md-gutter
                   .md-layout-item
-                    md-field
-                      label(for='subject') {{contact[lang].body}}
-                      md-textarea(name='subject', md-autogrow)
-                      span.md-error Campo requerido
+                    md-field(:class='messageClass')
+                      label(for='body') {{contact[lang].body}}
+                      md-textarea(v-model='email.body', name='body', type='textarea', md-autogrow)
+                      span.md-error {{lang == 'es' ? 'Por favor complete este campo' : 'Please fill out this field.'}}
                 .md-layout.md-gutter
                   .md-layout-item
                     md-button.md-raised.md-primary(@click='sendMail()') Enviar
@@ -74,11 +79,9 @@
 <script>
 import { db } from '@/firebase'
 import { mapGetters } from 'vuex'
-// import defaultConfig from '@/config/defaultConfig'
 import mapStyles from '@/config/mapStyles'
 
-const SGmail = require('@sendgrid/mail')
-SGmail.setApiKey(process.env.VUE_APP_SENDGRID_API_KEY)
+import emailjs from 'emailjs-com'
 
 export default {
   name: 'Body',
@@ -104,6 +107,8 @@ export default {
       us: {},
       catalog_info: {},
       product_tags: {},
+      email: {},
+      message: {},
       products: {
         es: [
           {
@@ -183,52 +188,33 @@ export default {
       },
       contact: {},
       sent: false,
+      hasMessages: false,
       mail_error: null,
-      sendInfo: {
-        'personalizations': [
-          {
-            'to': [
-              {
-                'email': 'sabino@southernlands.cl',
-                'name': 'Southernlands'
-              }
-            ],
-            'dynamic_template_data': {
-              'subject': 'Test de template',
-              'body': 'Template de sendgrid, test de envío.'
-            },
-            'subject': 'Contact Form'
-          }
-        ],
-        'from': {
-          'email': 'info@southernlands.cl',
-          'name': 'Southern Lands'
-        },
-        'reply_to': {
-          'email': 'info@southernlands.cl',
-          'name': 'Southern Lands'
-        },
-        'template_id': 'd-1f5a48507b26419c83accd4cde0d00ea'
-      }
     }
   },
   computed: {
-    ...mapGetters('lang', ['lang'])
+    ...mapGetters('lang', ['lang']),
+    messageClass() {
+      return {
+        'md-invalid': this.hasMessages
+      }
+    }
   },
   methods: {
     changeCat(cat_id) {
       this.cat_id = cat_id
     },
     sendMail() {
-      // console.log('triggered')
-      SGmail
-        .send(this.sendInfo)
-        .then((sent) => {
-          this.mail_status = sent
+      if (this.email.length > 3) {
+        emailjs.send('sendgrid','southernlands_contact', this.email, process.env.VUE_APP_EMAILJS_USER_ID)
+        .then((response) => {
+          this.sent = true
+          this.mail_status = response.text
+        }, (err) => {
+          this.sent = true
+          this.mail_error = err
         })
-        .catch(error => {
-          this.mail_status = error.toString()
-        })
+      }
     }
   }
 }
@@ -237,6 +223,13 @@ export default {
 <style scoped lang='scss'>
 @import '@/assets/global.scss';
 
+.email-body{
+  width: 100%;
+}
+h3.email-title{
+  width: 100%;
+  color: $primary-color;
+}
 .us-av{
   img{
     margin:auto;
