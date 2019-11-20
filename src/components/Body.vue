@@ -19,14 +19,16 @@
         //- md-chip.md-primary(md-clickable) {{catalog_info[lang].all}}
         md-chip(md-clickable, @click='changeCat(prod.id)', v-for='prod in product_tags[lang]', :key='prod.id', :class='prod.id == cat_id ? "md-primary" : "md-accent"') {{prod.title}}
       .catalog-prods.md-layout.md-alignment-center-center
-        md-card.md-primary.product-card(v-for='(item, key) in products[lang][cat_id].items', :key='key', md-with-hover)
+        md-card.md-primary.product-card(v-for='(item, key) in selected_prods', :key='key', md-with-hover)
           md-card-media-cover(md-solid)
             md-card-media
+              //- img(:src='"https://southernlands.appspot.com/products/" + item.id + ".jpg"')
               img(src='@/assets/img/no-media.jpg', alt='No-media')
+              //- img(:src="require(('' ? '@/assets/products/'+item.id+'.jpg' : '@/assets/img/no-media.jpg'))")
             md-card-area
               md-card-header
-                //- span.md-title {{item}}
-                span.md-subhead {{item}}
+                //- span.md-title {{item.id}}
+                span.md-subhead {{item.name}}
               //- md-card-actions
               //-   md-button.md-icon-button
               //-     md-icon book
@@ -34,37 +36,45 @@
     .container
       .md-layout.md-gutter.md-alignment-center-center
         .md-layout-item.md-small-size-100
-          form.md-layout
+          .md-layout-item.text-center(v-if='sending')
+            md-progress-spinner.md-primary(:md-diameter='100', :md-stroke='3', md-mode='indeterminate')
+          .md-layout(v-if='!sending && mail_status=="OK"')
+            h3.email-title {{lang == 'es' ? 'Hemos recibido su correo' : 'Your email has been sent'}}
+            p.email-body {{lang == 'es' ? 'Nos contactaremos con Usted a la brevedad.' : 'We will contact you ASAP.'}}
+          .md-layout(v-if='!sending && mail_error')
+            h3.email-title {{lang == 'es' ? 'Ha ocurrido un error' : 'Cannot send mail'}}
+            p.email-body {{lang == 'es' ? 'Por favor verifique su conexión e intente nuevamente.' : 'Please check your connection and try again'}}
+          form.md-layout(novalidate, v-if='!sending && !sent')
             md-card.md-layout-item
               md-card-header
                 .md-title {{contact[lang].title}}
               md-card-content
                 .md-layout.md-gutter
                   .md-layout-item
-                    md-field
-                      label(for='first-name') {{contact[lang].name}}
-                      md-input(name='first-name')
-                      span.md-error Campo requerido
+                    md-field(:class='getValidationClass("name")')
+                      label(for='name') {{contact[lang].name}}
+                      md-input(v-model.lazy='$v.email.name.$model', name='name', id='name')
+                      span.md-error {{lang == 'es' ? 'Por favor complete este campo' : 'Please fill out this field.'}}
                   .md-layout-item
-                    md-field
-                      label(for='first-name') {{contact[lang].email}}
-                      md-input(name='email')
-                      span.md-error Campo requerido
+                    md-field(:class='getValidationClass("email")')
+                      label(for='email') {{contact[lang].email}}
+                      md-input(v-model.lazy='$v.email.email.$model', name='email', id='email')
+                      span.md-error {{lang == 'es' ? 'Por favor ingrese un email válido' : 'Please enter a valid email.'}}
                 .md-layout.md-gutter
                   .md-layout-item
-                    md-field
+                    md-field(:class='getValidationClass("subject")')
                       label(for='subject') {{contact[lang].subject}}
-                      md-input(name='subject')
-                      span.md-error Campo requerido
+                      md-input(v-model.lazy='$v.email.subject.$model', name='subject', id='subject')
+                      span.md-error {{lang == 'es' ? 'Por favor complete este campo' : 'Please fill out this field.'}}
                 .md-layout.md-gutter
                   .md-layout-item
-                    md-field
-                      label(for='subject') {{contact[lang].body}}
-                      md-textarea(name='subject', md-autogrow)
-                      span.md-error Campo requerido
+                    md-field(:class='getValidationClass("body")')
+                      label(for='body') {{contact[lang].body}}
+                      md-textarea(v-model.lazy='$v.email.body.$model', name='body', id='body', type='textarea', md-autogrow)
+                      span.md-error {{lang == 'es' ? 'Por favor complete este campo' : 'Please fill out this field.'}}
                 .md-layout.md-gutter
                   .md-layout-item
-                    md-button.md-raised.md-primary(@click='sendMail()') Enviar
+                    md-button.md-raised.md-primary(@click='sendMail()', :disabled='$v.email.$invalid') Enviar
         .md-layout-item.md-small-size-100
           GmapMap.map(:center='{lat:-33.4235464, lng:-70.6206422}', :zoom='17', :options='{styles: mapOptions}' map-type-id='terrain')
             GmapMarker(:position='{lat:-33.4235509, lng:-70.6184535}', :clickable='true', :draggable='true', :icon='{ url: require("@/assets/img/cherry-logo.svg")}')
@@ -73,22 +83,30 @@
 <script>
 import { db } from '@/firebase'
 import { mapGetters } from 'vuex'
-import defaultConfig from '@/config/defaultConfig'
 import mapStyles from '@/config/mapStyles'
+import __ from 'lodash'
+import { validationMixin } from 'vuelidate'
+  import {
+    required,
+    email,
+    minLength
+  } from 'vuelidate/lib/validators'
 
-const SGmail = require('@sendgrid/mail')
-SGmail.setApiKey(defaultConfig.SENDGRID_API_KEY) 
+import emailjs from 'emailjs-com'
 
 export default {
   name: 'Body',
+  mixins: [validationMixin],
   mounted() {
     this.mapOptions = mapStyles.style
     this.$bind('us', db.collection('sections').doc('us'))
     this.$bind('contact', db.collection('sections').doc('contact'))
     this.$bind('catalog_info', db.collection('catalog').doc('info'))
+    this.$bind('products', db.collection('catalog').doc('products'))
     this.$bind('product_tags', db.collection('catalog').doc('product-tags'))
       .then( () => {
         this.loading = false
+        this.changeCat(this.cat_id)
       })
       .catch((error) => {
         this.error = error
@@ -97,120 +115,81 @@ export default {
   data() {
     return {
       cat_id: 0,
+      mail_status: null,
       mapOptions: [],
       loading: true,
       us: {},
+      selected_prods: {},
       catalog_info: {},
       product_tags: {},
-      products: {
-        es: [
-          {
-            id: '0',
-            items: [
-              'Nueces',
-              'Almendras'
-            ]
-          },
-          {
-            id: '1',
-            items: [
-              'Ciruela',
-              'Uva Pasa',
-              'Huesillos'
-            ]
-          },
-          {
-            id: '2',
-            items: [
-              'Mora',
-              'Arándano',
-              'Frutilla',
-              'Frambuesa',
-              'Uva',
-              'Kiwi'
-            ]
-          },
-          {
-            id: '3',
-            items: [
-              'Frutilla',
-              'Mora',
-              'Frambuesa',
-              'Arándano'
-            ]
-          }
-        ],
-        en: [
-          {
-            id: '0',
-            items: [
-              'Walnut',
-              'Almond'
-            ]
-          },
-          {
-            id: '1',
-            items: [
-              'Cherry',
-              'Grape',
-              'Raisin',
-              'Huesillos'
-            ]
-          },
-          {
-            id: '2',
-            items: [
-              'Blackberry',
-              'Blueberry',
-              'Strawberry',
-              'Raspberry',
-              'Grape',
-              'Kiwi'
-            ]
-          },
-          {
-            id: '3',
-            items: [
-              'Strawberry',
-              'Blackberry',
-              'Raspberry',
-              'Blueberry'
-            ]
-          }
-        ]
+      email: {
+        name: null,
+        email: null,
+        subject: null,
+        body: null
       },
+      message: {},
+      products: {},
       contact: {},
+      sending: false,
       sent: false,
+      hasMessages: false,
       mail_error: null,
-      // message: {
-      //   to: 'sabino@front.cl',
-      //   from: {
-      //     email: 'sabino@front.cl',
-      //     name: 'Southern Lands Chile'
-      //   },
-      //   subject: 'Sendgrid Subject',
-      //   text: 'and easy to do anywhere, even with Node.js',
-      //   html: '<strong>and easy to do anywhere, even with Node.js</strong>'
-      // }
+    }
+  },
+  validations: {
+    email: {
+      name: {
+        required,
+        minLength: minLength(3)
+      },
+      email: {
+        required,
+        email
+      },
+      subject: {
+        required,
+        minLength: minLength(4)
+      },
+      body: {
+        required,
+        minLength: minLength(4)
+      }
     }
   },
   computed: {
-    ...mapGetters('lang', ['lang'])
+    ...mapGetters('lang', ['lang']),
   },
   methods: {
+    getValidationClass (fieldName) {
+      const field = this.$v.email[fieldName]
+      if (field) {
+        return {
+          'md-invalid': field.$invalid && field.$dirty
+        }
+      }
+    },
     changeCat(cat_id) {
       this.cat_id = cat_id
+      this.filteredProds(cat_id)
+    },
+    filteredProds(cat) {
+      this.selected_prods = __.filter(this.products[this.lang], (o) => { return o.cat_id == cat })
     },
     sendMail() {
-      // console.log('triggered')
-      // SGmail
-      //   .send(this.message)
-      //   .then((sent) => {
-      //     console.log(sent)
-      //   })
-      //   .catch(error => {
-      //     console.error(error.toString())
-      //   })
+      if (!this.$v.email.$invalid) {
+        this.sending = true
+        emailjs.send('sendgrid','southernlands_contact', this.email, process.env.VUE_APP_EMAILJS_USER_ID)
+        .then((response) => {
+          this.sending = false
+          this.sent = true
+          this.mail_status = response.text
+        }, (err) => {
+          this.sending = false
+          this.mail_error = err
+          this.sent = false
+        })
+      }
     }
   }
 }
@@ -219,6 +198,13 @@ export default {
 <style scoped lang='scss'>
 @import '@/assets/global.scss';
 
+.email-body{
+  width: 100%;
+}
+h3.email-title{
+  width: 100%;
+  color: $primary-color;
+}
 .us-av{
   img{
     margin:auto;

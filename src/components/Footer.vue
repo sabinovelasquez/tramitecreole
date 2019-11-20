@@ -4,7 +4,6 @@
       .md-layout-item.md-small-size-100
         h4
           img(svg-inline, src='@/assets/img/southernlands-logo-text.svg', alt='Southern Lands')
-        //- h4 {{footer.address[lang].title}}
         p(v-for='(item, key) in footer.address[lang].content')
           md-icon.mar-right(v-if='footer.address[lang].content.length == (key + 1)') phone
           | {{item}}
@@ -15,6 +14,15 @@
         h4 {{footer.certification[lang].title}}
         ul
           li(v-for='item in footer.certification[lang].content') {{item}}
+      .md-layout-item
+        md-speed-dial
+          md-speed-dial-target.md-primary
+            md-icon share
+          md-speed-dial-content
+            md-button.md-icon-button
+              md-icon cake
+            md-button.md-icon-button
+              md-icon event
     .container.md-layout.md-alignment-center
       p
         small Southernlands SpA © 2019
