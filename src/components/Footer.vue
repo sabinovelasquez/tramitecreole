@@ -14,15 +14,6 @@
         h4 {{footer.certification[lang].title}}
         ul
           li(v-for='item in footer.certification[lang].content') {{item}}
-      .md-layout-item
-        md-speed-dial
-          md-speed-dial-target.md-primary
-            md-icon share
-          md-speed-dial-content
-            md-button.md-icon-button
-              md-icon cake
-            md-button.md-icon-button
-              md-icon event
     .container.md-layout.md-alignment-center
       p
         small Southernlands SpA © 2019
