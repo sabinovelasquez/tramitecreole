@@ -23,11 +23,11 @@
           md-card-media-cover(md-solid)
             md-card-media
               //- img(:src='"https://southernlands.appspot.com/products/" + item.id + ".jpg"')
-              img(src='@/assets/img/no-media.jpg', alt='No-media')
+              img(crossorigin='include', :src='item.image', :alt='item.name')
               //- img(:src="require(('' ? '@/assets/products/'+item.id+'.jpg' : '@/assets/img/no-media.jpg'))")
             md-card-area
               md-card-header
-                //- span.md-title {{item.id}}
+                span.md-title {{getImage(item.id)}}
                 span.md-subhead {{item.name}}
               //- md-card-actions
               //-   md-button.md-icon-button
@@ -94,6 +94,10 @@ import { validationMixin } from 'vuelidate'
 
 import emailjs from 'emailjs-com'
 
+import firebase from 'firebase/app'
+import 'firebase/storage'
+
+const storageRef = firebase.app().storage().ref('products')
 export default {
   name: 'Body',
   mixins: [validationMixin],
@@ -168,6 +172,15 @@ export default {
           'md-invalid': field.$invalid && field.$dirty
         }
       }
+    },
+    getImage (img_id) {
+      let fullImg = require('@/assets/img/no-media.jpg')
+      const image = storageRef.child(`${img_id}.jpg`)
+      image.getDownloadURL().then( (url) => {
+        fullImg = url
+        const obj = __.findKey(this.products[this.lang], { 'id': img_id })
+        this.products[this.lang][obj].image = url
+      })
     },
     changeCat(cat_id) {
       this.cat_id = cat_id
