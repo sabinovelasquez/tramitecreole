@@ -18,20 +18,16 @@
             md-menu(md-size='small', :md-close-on-click='true')
               md-button.md-icon-button(md-menu-trigger='')
                 img(:src='"@/assets/img/icon-" + lang + ".png"', alt='Spanish')
-              md-menu-content
-                md-list
-                  md-list-item(@click='changeLang("ch")', disabled)
-                    img.disabled(src='@/assets/img/icon-ch.png', alt='Chinese')
-                    small.disabled.mar-left Chinese
-                  md-list-item(@click='changeLang("en")')
-                    img(src='@/assets/img/icon-en.png', alt='English')
-                    small.mar-left English
-                  md-list-item(@click='changeLang("es")')
-                    img(src='@/assets/img/icon-es.png', alt='Spanish')
-                    small.mar-left Spanish
-            //- a(@click='changeLang("en")') EN 
-            //- | / 
-            //- a(@click='changeLang("es")') ES
+              md-menu-content(style='z-index:9999')
+                md-list-item(@click='changeLang("ch")', disabled)
+                  img.disabled(src='@/assets/img/icon-ch.png', alt='Chinese')
+                  small.disabled.mar-left Chinese
+                md-list-item(@click='changeLang("en")')
+                  img(src='@/assets/img/icon-en.png', alt='English')
+                  small.mar-left English
+                md-list-item(@click='changeLang("es")')
+                  img(src='@/assets/img/icon-es.png', alt='Spanish')
+                  small.mar-left Spanish
     .md-layout.md-alignment-center-center.loading(v-else)
       .main-loading
         img(svg-inline, src='@/assets/img/cherry-logo.svg', alt='Southern Lands')

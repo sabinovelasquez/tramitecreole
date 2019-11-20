@@ -42,33 +42,33 @@
           .md-layout(v-if='sent && mail_error')
             h3.email-title {{lang == 'es' ? 'Ha ocurrido un error' : 'Cannot send mail'}}
             p.email-body {{lang == 'es' ? 'Por favor verifique su conexión e intente nuevamente.' : 'Please check your connection and try again'}}
-          form.md-layout(v-if='!sent')
+          form.md-layout(novalidate, v-if='!sent')
             md-card.md-layout-item
               md-card-header
                 .md-title {{contact[lang].title}}
               md-card-content
                 .md-layout.md-gutter
                   .md-layout-item
-                    md-field(:class='messageClass')
-                      label(for='first-name') {{contact[lang].name}}
-                      md-input(v-model='email.name', name='first-name')
+                    md-field(:class='getValidationClass("name")')
+                      label(for='name') {{contact[lang].name}}
+                      md-input(v-model.lazy='$v.email.name.$model', name='name', id='name')
                       span.md-error {{lang == 'es' ? 'Por favor complete este campo' : 'Please fill out this field.'}}
                   .md-layout-item
-                    md-field(:class='messageClass')
-                      label(for='first-name') {{contact[lang].email}}
-                      md-input(v-model='email.email', name='email')
-                      span.md-error {{lang == 'es' ? 'Por favor complete este campo' : 'Please fill out this field.'}}
+                    md-field(:class='getValidationClass("email")')
+                      label(for='email') {{contact[lang].email}}
+                      md-input(v-model.lazy='$v.email.email.$model', name='email', id='email')
+                      span.md-error {{lang == 'es' ? 'Por favor ingrese un email válido' : 'Please enter a valid email.'}}
                 .md-layout.md-gutter
                   .md-layout-item
-                    md-field(:class='messageClass')
+                    md-field(:class='getValidationClass("subject")')
                       label(for='subject') {{contact[lang].subject}}
-                      md-input(v-model='email.subject', name='subject')
+                      md-input(v-model.lazy='$v.email.subject.$model', name='subject', id='subject')
                       span.md-error {{lang == 'es' ? 'Por favor complete este campo' : 'Please fill out this field.'}}
                 .md-layout.md-gutter
                   .md-layout-item
-                    md-field(:class='messageClass')
+                    md-field(:class='getValidationClass("body")')
                       label(for='body') {{contact[lang].body}}
-                      md-textarea(v-model='email.body', name='body', type='textarea', md-autogrow)
+                      md-textarea(v-model.lazy='$v.email.body.$model', name='body', id='body', type='textarea', md-autogrow)
                       span.md-error {{lang == 'es' ? 'Por favor complete este campo' : 'Please fill out this field.'}}
                 .md-layout.md-gutter
                   .md-layout-item
@@ -83,11 +83,18 @@ import { db } from '@/firebase'
 import { mapGetters } from 'vuex'
 import mapStyles from '@/config/mapStyles'
 import __ from 'lodash'
+import { validationMixin } from 'vuelidate'
+  import {
+    required,
+    email,
+    minLength
+  } from 'vuelidate/lib/validators'
 
 import emailjs from 'emailjs-com'
 
 export default {
   name: 'Body',
+  mixins: [validationMixin],
   mounted() {
     this.mapOptions = mapStyles.style
     this.$bind('us', db.collection('sections').doc('us'))
@@ -113,7 +120,12 @@ export default {
       selected_prods: {},
       catalog_info: {},
       product_tags: {},
-      email: {},
+      email: {
+        name: null,
+        email: null,
+        subject: null,
+        body: null
+      },
       message: {},
       products: {},
       contact: {},
@@ -122,15 +134,38 @@ export default {
       mail_error: null,
     }
   },
-  computed: {
-    ...mapGetters('lang', ['lang']),
-    messageClass() {
-      return {
-        'md-invalid': this.hasMessages
+  validations: {
+    email: {
+      name: {
+        required,
+        minLength: minLength(3)
+      },
+      email: {
+        required,
+        email
+      },
+      subject: {
+        required,
+        minLength: minLength(4)
+      },
+      body: {
+        required,
+        minLength: minLength(4)
       }
     }
   },
+  computed: {
+    ...mapGetters('lang', ['lang']),
+  },
   methods: {
+    getValidationClass (fieldName) {
+      const field = this.$v.email[fieldName]
+      if (field) {
+        return {
+          'md-invalid': field.$invalid && field.$dirty
+        }
+      }
+    },
     changeCat(cat_id) {
       this.cat_id = cat_id
       this.filteredProds(cat_id)
@@ -139,7 +174,7 @@ export default {
       this.selected_prods = __.filter(this.products[this.lang], (o) => { return o.cat_id == cat })
     },
     sendMail() {
-      if (this.email.length > 3) {
+      if (!this.$v.email.$invalid) {
         emailjs.send('sendgrid','southernlands_contact', this.email, process.env.VUE_APP_EMAILJS_USER_ID)
         .then((response) => {
           this.sent = true
