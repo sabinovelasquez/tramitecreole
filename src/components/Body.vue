@@ -36,13 +36,15 @@
     .container
       .md-layout.md-gutter.md-alignment-center-center
         .md-layout-item.md-small-size-100
-          .md-layout(v-if='sent && mail_status=="OK"')
+          .md-layout-item.text-center(v-if='sending')
+            md-progress-spinner.md-primary(:md-diameter='100', :md-stroke='3', md-mode='indeterminate')
+          .md-layout(v-if='!sending && mail_status=="OK"')
             h3.email-title {{lang == 'es' ? 'Hemos recibido su correo' : 'Your email has been sent'}}
             p.email-body {{lang == 'es' ? 'Nos contactaremos con Usted a la brevedad.' : 'We will contact you ASAP.'}}
-          .md-layout(v-if='sent && mail_error')
+          .md-layout(v-if='!sending && mail_error')
             h3.email-title {{lang == 'es' ? 'Ha ocurrido un error' : 'Cannot send mail'}}
             p.email-body {{lang == 'es' ? 'Por favor verifique su conexión e intente nuevamente.' : 'Please check your connection and try again'}}
-          form.md-layout(novalidate, v-if='!sent')
+          form.md-layout(novalidate, v-if='!sending && !sent')
             md-card.md-layout-item
               md-card-header
                 .md-title {{contact[lang].title}}
@@ -72,7 +74,7 @@
                       span.md-error {{lang == 'es' ? 'Por favor complete este campo' : 'Please fill out this field.'}}
                 .md-layout.md-gutter
                   .md-layout-item
-                    md-button.md-raised.md-primary(@click='sendMail()') Enviar
+                    md-button.md-raised.md-primary(@click='sendMail()', :disabled='$v.email.$invalid') Enviar
         .md-layout-item.md-small-size-100
           GmapMap.map(:center='{lat:-33.4235464, lng:-70.6206422}', :zoom='17', :options='{styles: mapOptions}' map-type-id='terrain')
             GmapMarker(:position='{lat:-33.4235509, lng:-70.6184535}', :clickable='true', :draggable='true', :icon='{ url: require("@/assets/img/cherry-logo.svg")}')
@@ -129,6 +131,7 @@ export default {
       message: {},
       products: {},
       contact: {},
+      sending: false,
       sent: false,
       hasMessages: false,
       mail_error: null,
@@ -175,13 +178,16 @@ export default {
     },
     sendMail() {
       if (!this.$v.email.$invalid) {
+        this.sending = true
         emailjs.send('sendgrid','southernlands_contact', this.email, process.env.VUE_APP_EMAILJS_USER_ID)
         .then((response) => {
+          this.sending = false
           this.sent = true
           this.mail_status = response.text
         }, (err) => {
-          this.sent = true
+          this.sending = false
           this.mail_error = err
+          this.sent = false
         })
       }
     }
