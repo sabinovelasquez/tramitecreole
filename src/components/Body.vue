@@ -19,17 +19,21 @@
         //- md-chip.md-primary(md-clickable) {{catalog_info[lang].all}}
         md-chip.mar-top(md-clickable, @click='changeCat(prod.id)', v-for='prod in product_tags[lang]', :key='prod.id', :class='prod.id == cat_id ? "md-primary" : "md-accent"') {{prod.title}}
       .catalog-prods
+        .md-layout.md-gutter.md-alignment-center-center(v-if='loadingCat')
+          .md-layout-item.text-center
+            h2.loading.niconne Southern Lands
+            h3.loading {{ lang == 'es' ? 'Cargando productos...' : 'Loading products...' }}
         .md-layout.md-gutter.md-alignment-center-center.loaded(v-if='!loadingCat')
           .md-layout-item.md-medium-size-33.md-large-size-25.md-small-size-50.md-xsmall-size-100(v-for='(item, key) in selected_prods', :key='key', md-with-hover)
             md-card.md-primary.product-card
-              md-card-media-cover(md-solid)
+              md-card-media-cover(md-text-scrim)
                 md-card-media
                   img(v-if='!item.image', src='@/assets/img/no-media.jpg')
                   img(v-else, v-bind:src='item.image', :alt='item.name')
                 md-card-area
                   md-card-header
-                    //- span.md-title {{item.id}}
-                    span.md-subhead {{item.name}}
+                    span.md-title {{item.name}}
+                    //- span.md-subhead {{item.name}}
                   //- md-card-actions
                   //-   md-button.md-icon-button
                   //-     md-icon book
@@ -222,6 +226,14 @@ export default {
 }
 .mar-top{
   margin-top: 5px;
+}
+h2.loading{
+  color: lighten($dark-grey, 55);
+  font-size: 50px;
+}
+h3.loading{
+  color: lighten($dark-grey, 55);
+  font-size: 22px;
 }
 h3.email-title{
   width: 100%;
