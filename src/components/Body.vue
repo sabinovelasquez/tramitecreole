@@ -23,11 +23,11 @@
           md-card-media-cover(md-solid)
             md-card-media
               //- img(:src='"https://southernlands.appspot.com/products/" + item.id + ".jpg"')
-              img(crossorigin='include', :src='item.image', :alt='item.name')
-              //- img(:src="require(('' ? '@/assets/products/'+item.id+'.jpg' : '@/assets/img/no-media.jpg'))")
+              img(v-if='!item.image', src='@/assets/img/no-media.jpg')
+              img(v-else, v-bind:src='item.image', :alt='item.name')
             md-card-area
               md-card-header
-                span.md-title {{getImage(item.id)}}
+                span.md-title {{item.id}}
                 span.md-subhead {{item.name}}
               //- md-card-actions
               //-   md-button.md-icon-button
@@ -174,10 +174,8 @@ export default {
       }
     },
     getImage (img_id) {
-      let fullImg = require('@/assets/img/no-media.jpg')
       const image = storageRef.child(`${img_id}.jpg`)
       image.getDownloadURL().then( (url) => {
-        fullImg = url
         const obj = __.findKey(this.products[this.lang], { 'id': img_id })
         this.products[this.lang][obj].image = url
       })
