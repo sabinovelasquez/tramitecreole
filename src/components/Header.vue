@@ -15,7 +15,9 @@
               img.logo-menu(svg-inline, src='@/assets/img/cherry-logo.svg')
             md-button(v-for='item in main_menu[lang]', :key='item.id', v-scroll-to='`#${item.link}`') {{item.title}}
           .langs.right
-            md-menu(md-size='small', :md-close-on-click='true')
+            span
+              small {{lang == 'es' ? 'Idioma' : 'Language'}}:
+            md-menu.mar-left(md-size='small', :md-close-on-click='true')
               md-button.md-icon-button(md-menu-trigger='')
                 img(:src='"@/assets/img/icon-" + lang + ".png"', alt='Spanish')
               md-menu-content(style='z-index:9999')
