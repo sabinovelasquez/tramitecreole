@@ -19,19 +19,19 @@
         //- md-chip.md-primary(md-clickable) {{catalog_info[lang].all}}
         md-chip(md-clickable, @click='changeCat(prod.id)', v-for='prod in product_tags[lang]', :key='prod.id', :class='prod.id == cat_id ? "md-primary" : "md-accent"') {{prod.title}}
       .catalog-prods.md-layout.md-alignment-center-center
-        md-card.md-primary.product-card(v-for='(item, key) in selected_prods', :key='key', md-with-hover)
-          md-card-media-cover(md-solid)
-            md-card-media
-              //- img(:src='"https://southernlands.appspot.com/products/" + item.id + ".jpg"')
-              img(src='@/assets/img/no-media.jpg', alt='No-media')
-              //- img(:src="require(('' ? '@/assets/products/'+item.id+'.jpg' : '@/assets/img/no-media.jpg'))")
-            md-card-area
-              md-card-header
-                //- span.md-title {{item.id}}
-                span.md-subhead {{item.name}}
-              //- md-card-actions
-              //-   md-button.md-icon-button
-              //-     md-icon book
+        .loaded(v-if='!loadingCat')
+          md-card.md-primary.product-card(v-for='(item, key) in selected_prods', :key='key', md-with-hover)
+            md-card-media-cover(md-solid)
+              md-card-media
+                img(v-if='!item.image', src='@/assets/img/no-media.jpg')
+                img(v-else, v-bind:src='item.image', :alt='item.name')
+              md-card-area
+                md-card-header
+                  //- span.md-title {{item.id}}
+                  span.md-subhead {{item.name}}
+                //- md-card-actions
+                //-   md-button.md-icon-button
+                //-     md-icon book
   section.contact#contact
     .container
       .md-layout.md-gutter.md-alignment-center-center
@@ -94,6 +94,10 @@ import { validationMixin } from 'vuelidate'
 
 import emailjs from 'emailjs-com'
 
+import firebase from 'firebase/app'
+import 'firebase/storage'
+
+const storageRef = firebase.app().storage().ref('products')
 export default {
   name: 'Body',
   mixins: [validationMixin],
@@ -118,6 +122,7 @@ export default {
       mail_status: null,
       mapOptions: [],
       loading: true,
+      loadingCat: true,
       us: {},
       selected_prods: {},
       catalog_info: {},
@@ -174,7 +179,20 @@ export default {
       this.filteredProds(cat_id)
     },
     filteredProds(cat) {
-      this.selected_prods = __.filter(this.products[this.lang], (o) => { return o.cat_id == cat })
+      this.loadingCat = true
+      const filteredArr = __.filter(this.products[this.lang], (o) => { return o.cat_id == cat })
+      let itemsProcessed = 0
+      filteredArr.forEach( (value) => {
+        const imageStore = storageRef.child(`${value.id}.jpg`)
+        imageStore.getDownloadURL().then( (url) => {
+          value.image = url
+          itemsProcessed++
+          if ( itemsProcessed ===  filteredArr.length ) {
+            this.selected_prods = filteredArr
+            this.loadingCat = false
+          }
+        })
+      })
     },
     sendMail() {
       if (!this.$v.email.$invalid) {
@@ -244,6 +262,10 @@ section{
     }
     .catalog-prods{
       margin: 30px 0;
+      min-height: 200px;
+      .md-card{
+        min-height: 80px;
+      }
     }
   }
   &.contact{
