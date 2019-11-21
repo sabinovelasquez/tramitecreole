@@ -18,20 +18,21 @@
       .md-layout.md-alignment-center-center(v-if='product_tags[lang] && catalog_info[lang]')
         //- md-chip.md-primary(md-clickable) {{catalog_info[lang].all}}
         md-chip(md-clickable, @click='changeCat(prod.id)', v-for='prod in product_tags[lang]', :key='prod.id', :class='prod.id == cat_id ? "md-primary" : "md-accent"') {{prod.title}}
-      .catalog-prods.md-layout.md-alignment-center-center
-        .loaded(v-if='!loadingCat')
-          md-card.md-primary.product-card(v-for='(item, key) in selected_prods', :key='key', md-with-hover)
-            md-card-media-cover(md-solid)
-              md-card-media
-                img(v-if='!item.image', src='@/assets/img/no-media.jpg')
-                img(v-else, v-bind:src='item.image', :alt='item.name')
-              md-card-area
-                md-card-header
-                  //- span.md-title {{item.id}}
-                  span.md-subhead {{item.name}}
-                //- md-card-actions
-                //-   md-button.md-icon-button
-                //-     md-icon book
+      .catalog-prods
+        .md-layout.md-gutter.md-alignment-center-center.loaded(v-if='!loadingCat')
+          .md-layout-item.md-medium-size-33.md-large-size-25.md-small-size-50.md-xsmall-size-100(v-for='(item, key) in selected_prods', :key='key', md-with-hover)
+            md-card.md-primary.product-card
+              md-card-media-cover(md-solid)
+                md-card-media
+                  img(v-if='!item.image', src='@/assets/img/no-media.jpg')
+                  img(v-else, v-bind:src='item.image', :alt='item.name')
+                md-card-area
+                  md-card-header
+                    //- span.md-title {{item.id}}
+                    span.md-subhead {{item.name}}
+                  //- md-card-actions
+                  //-   md-button.md-icon-button
+                  //-     md-icon book
   section.contact#contact
     .container
       .md-layout.md-gutter.md-alignment-center-center
@@ -255,7 +256,7 @@ section{
       line-height: 50px;
     }
     .product-card {
-      width: 240px;
+      // width: 240px;
       margin: 4px;
       display: inline-block;
       vertical-align: top;
