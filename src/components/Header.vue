@@ -13,12 +13,17 @@
           md-menu.menu(md-size='small')
             md-button.md-icon-button(md-menu-trigger, v-scroll-to='"#app"')
               img.logo-menu(svg-inline, src='@/assets/img/cherry-logo.svg')
-            md-button(v-for='item in main_menu[lang]', :key='item.id', v-scroll-to='`#${item.link}`') {{item.title}}
+            md-menu.showMobile
+              md-button.md-icon-button(md-menu-trigger)
+                md-icon menu
+              md-menu-content(style='z-index:9999')
+                md-button(v-for='item in main_menu[lang]', :key='item.id', v-scroll-to='`#${item.link}`') {{item.title}}
+            md-button.md-xsmall-hide(v-for='item in main_menu[lang]', :key='item.id', v-scroll-to='`#${item.link}`') {{item.title}}
           .langs.right
             span
               small {{lang == 'es' ? 'Idioma' : 'Language'}}:
             md-menu.mar-left(md-size='small', :md-close-on-click='true')
-              md-button.md-icon-button(md-menu-trigger='')
+              md-button.md-icon-button(md-menu-trigger)
                 img(:src='"@/assets/img/icon-" + lang + ".png"', alt='Spanish')
               md-menu-content(style='z-index:9999')
                 md-list-item(@click='changeLang("ch")', disabled)
@@ -75,6 +80,11 @@ export default {
 
 <style scoped lang='scss'>
 @import '@/assets/global.scss';
+.showMobile{
+  @media (min-width: 600px){
+    display: none;
+  }
+}
 .disabled{
   opacity: .5;
   cursor: not-allowed;
