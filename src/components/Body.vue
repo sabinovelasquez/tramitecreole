@@ -212,6 +212,14 @@ export default {
         })
       }
     }
+  },
+  watch: {
+    'lang': {
+      deep: true,
+      handler () {
+        this.changeCat(this.cat_id)
+      }
+    }
   }
 }
 </script>
