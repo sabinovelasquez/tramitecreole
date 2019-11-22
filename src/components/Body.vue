@@ -180,6 +180,13 @@ export default {
     changeCat(cat_id) {
       this.cat_id = cat_id
       this.filteredProds(cat_id)
+      const catKey = __.findIndex(this.product_tags[this.lang], (o) => { return o.id == cat_id })
+      this.$ga.event({
+        eventCategory: 'Products',
+        eventAction: 'click',
+        eventLabel: 'View category',
+        eventValue: this.product_tags[this.lang][catKey].title
+      })
     },
     filteredProds(cat) {
       this.loadingCat = true
