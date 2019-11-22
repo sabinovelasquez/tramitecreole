@@ -58,6 +58,7 @@ export default {
     }
   },
   mounted() {
+    this.$ga.page('Landing')
     this.$bind('main_title', db.collection('general').doc('main-title'))
     this.$bind('main_menu', db.collection('general').doc('main-menu'))
       .then( () => {

@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import VueAnalytics from 'vue-analytics'
 import App from './App.vue'
 import router from './router'
 import store from './store'
@@ -11,6 +12,7 @@ import '@/assets/global.scss'
 
 import { firestorePlugin } from 'vuefire'
 
+Vue.use(VueAnalytics, { id: defaultConfig.ANALYTICS_ID })
 Vue.use(VueMaterial)
 Vue.use(VueScrollTo, {offset: -70})
 Vue.use(Sticky)
