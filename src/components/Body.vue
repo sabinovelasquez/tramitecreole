@@ -14,9 +14,7 @@
       .md-layout.md-alignment-center-center
         .md-layout-item
           h2.title {{catalog_info[lang].title}}
-          //- md-icon book
       .md-layout.md-alignment-center-center(v-if='product_tags[lang] && catalog_info[lang]')
-        //- md-chip.md-primary(md-clickable) {{catalog_info[lang].all}}
         md-chip.mar-top(md-clickable, @click='changeCat(prod.id)', v-for='prod in product_tags[lang]', :key='prod.id', :class='prod.id == cat_id ? "md-primary" : "md-accent"') {{prod.title}}
       .catalog-prods
         .md-layout.md-gutter.md-alignment-center-center(v-if='loadingCat')
@@ -233,7 +231,7 @@ h2.loading{
 }
 h3.loading{
   color: lighten($dark-grey, 55);
-  font-size: 22px;
+  font-size: 15px;
 }
 h3.email-title{
   width: 100%;
