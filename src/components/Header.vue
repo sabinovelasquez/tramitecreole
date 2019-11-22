@@ -11,12 +11,13 @@
       .nav-bar(v-sticky, sticky-offset='{top: 0}')
         .container
           md-menu.menu(md-size='small')
-            md-button.md-icon-button(md-menu-trigger, v-scroll-to='"#app"')
+            md-button.md-xsmall-hide.md-icon-button(md-menu-trigger, v-scroll-to='"#app"')
               img.logo-menu(svg-inline, src='@/assets/img/cherry-logo.svg')
             md-menu.showMobile
               md-button.md-icon-button(md-menu-trigger)
-                md-icon menu
-              md-menu-content(style='z-index:9999')
+                img(svg-inline, src='@/assets/img/menu.svg', alt='Menu')
+              md-menu-content.mobile-menu
+                img(svg-inline, src='@/assets/img/cherry-logo.svg', alt='Southern Lands', style='margin:10px auto;width:20px;')
                 md-button(v-for='item in main_menu[lang]', :key='item.id', v-scroll-to='`#${item.link}`') {{item.title}}
             md-button.md-xsmall-hide(v-for='item in main_menu[lang]', :key='item.id', v-scroll-to='`#${item.link}`') {{item.title}}
           .langs.right
@@ -84,6 +85,9 @@ export default {
   @media (min-width: 600px){
     display: none;
   }
+}
+.mobile-menu{
+  z-index: 999;
 }
 .disabled{
   opacity: .5;
