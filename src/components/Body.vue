@@ -79,8 +79,8 @@
                   .md-layout-item
                     md-button.md-raised.md-primary(@click='sendMail()', :disabled='$v.email.$invalid') Enviar
         .md-layout-item.md-small-size-100
-          GmapMap.map(:center='{lat:-33.4235464, lng:-70.6206422}', :zoom='17', :options='{styles: mapOptions}' map-type-id='terrain')
-            GmapMarker(:position='{lat:-33.4235509, lng:-70.6184535}', :clickable='true', :draggable='true', :icon='{ url: require("@/assets/img/cherry-logo.svg")}')
+          GmapMap.map(:center='{lat:-33.4235509, lng:-70.6184535}', :zoom='17', :options='{styles: mapOptions}' map-type-id='terrain')
+            GmapMarker(:position='{lat:-33.4235509, lng:-70.6184535}', :clickable='true', :icon='{ url: require("@/assets/img/cherry-logo.svg")}')
 </template>
 
 <script>
