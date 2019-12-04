@@ -4,8 +4,8 @@
       header.bg
         .container.md-layout.md-alignment-center
           .logo
-            img.logo-cherry(svg-inline, src='@/assets/img/cherry-logo.svg', alt='Southern Lands')
-            img.logo-text(svg-inline, src='@/assets/img/southernlands-logo-text.svg', alt='Southern Lands')
+            img.main-logo(svg-inline, src='@/assets/img/mainLogo.svg', alt='Southern Lands')
+            //- img.logo-text(svg-inline, src='@/assets/img/southernlands-logo-text.svg', alt='Southern Lands')
         .container.md-layout.md-alignment-center
           p.tagline.niconne {{main_title[lang]}}
       .nav-bar(v-sticky, sticky-offset='{top: 0}')
