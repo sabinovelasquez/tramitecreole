@@ -22,7 +22,7 @@
             h2.loading.niconne Southern Lands
             h3.loading {{ lang == 'es' ? 'Cargando productos...' : 'Loading products...' }}
         .md-layout.md-gutter.md-alignment-center-center.loaded(v-if='!loadingCat')
-          .md-layout-item.md-medium-size-33.md-large-size-25.md-small-size-50.md-xsmall-size-100(v-for='(item, key) in selected_prods', :key='key', md-with-hover)
+          .md-layout-item.md-medium-size-33.md-small-size-50.md-xsmall-size-100(v-for='(item, key) in selected_prods', :key='key', md-with-hover)
             md-card.md-primary.product-card
               md-card-media-cover(md-text-scrim)
                 md-card-media
@@ -35,6 +35,27 @@
                   //- md-card-actions
                   //-   md-button.md-icon-button
                   //-     md-icon book
+  section.instagram#instagram
+    .container
+      .md-layout.md-alignment-center-center
+        .md-layout-item
+          h2.title
+            span Instagram
+          h4.text-center
+            a(href='https://www.instagram.com/southernlandschile/', target='_blank') @southernlandschile
+      .gallery
+        vue-instagram.md-layout.md-gutter.md-alignment-center-center(token='28093675861.1677ed0.c37fc07b863745adb771ba7ff63f6fb0', :count='9', mediatype='image')
+          template(v-slot:loading='props')
+            h1.fancy-loading(v-if='props.loading') {{ lang == 'es' ? 'Cargando últimas fotos de instagram...' : 'Loading latest posts from instagram...' }}
+          template.md-layout-item.md-medium-size-33.md-small-size-50.md-xsmall-size-100(v-slot:feeds='props')
+            //- li.fancy-list  {{ props.feed.link }}
+            md-card.md-primary.story
+              md-card-media-cover
+                md-card-media
+                  img(:src='props.feed.images.low_resolution.url', :alt='props.feed.link')
+          template(v-slot:error='props')
+            .fancy-alert  {{ props.error.error_message }} 
+
   section.contact#contact
     .container
       .md-layout.md-gutter.md-alignment-center-center
@@ -89,12 +110,13 @@ import { mapGetters } from 'vuex'
 import mapStyles from '@/config/mapStyles'
 import __ from 'lodash'
 import { validationMixin } from 'vuelidate'
-  import {
-    required,
-    email,
-    minLength
-  } from 'vuelidate/lib/validators'
+import {
+  required,
+  email,
+  minLength
+} from 'vuelidate/lib/validators'
 
+import VueInstagram from 'vue-instagram'
 import emailjs from 'emailjs-com'
 
 import firebase from 'firebase/app'
@@ -104,6 +126,9 @@ const storageRef = firebase.app().storage().ref('products')
 export default {
   name: 'Body',
   mixins: [validationMixin],
+  components: {
+    VueInstagram
+  },
   mounted() {
     this.mapOptions = mapStyles.style
     this.$bind('us', db.collection('sections').doc('us'))
@@ -290,6 +315,25 @@ section{
       vertical-align: top;
     }
     .catalog-prods{
+      margin: 30px 0;
+      min-height: 200px;
+      .md-card{
+        min-height: 80px;
+      }
+    }
+  }
+  &.instagram{
+    h2.title{
+      text-align: center;
+      font-weight: 100;
+      line-height: 50px;
+    }
+    .story{
+      margin: 4px;
+      display: inline-block;
+      vertical-align: top;
+    }
+    .gallery{
       margin: 30px 0;
       min-height: 200px;
       .md-card{
