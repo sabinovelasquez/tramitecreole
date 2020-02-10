@@ -6,6 +6,7 @@ import store from './store'
 import VueMaterial from 'vue-material'
 import Sticky from 'vue-sticky-directive'
 import VueScrollTo from 'vue-scrollto'
+import VueInstagram from 'vue-instagram'
 import * as VueGoogleMaps from 'vue2-google-maps'
 import defaultConfig from './config/defaultConfig'
 import '@/assets/global.scss'
@@ -17,6 +18,7 @@ Vue.use(VueMaterial)
 Vue.use(VueScrollTo, {offset: -70})
 Vue.use(Sticky)
 Vue.use(firestorePlugin)
+Vue.use(VueInstagram)
 Vue.use(VueGoogleMaps, {
   load: {
     key: defaultConfig.GOOGLEMAPS_API_KEY,
