@@ -22,7 +22,7 @@
           .md-layout-item.md-small-size-50.md-size-25
             .md-layout.md-alignment-center-center
               .md-layout-item.md-size-25
-                md-icon phone_android
+                md-icon.md-primary.md-size-2x phone_android
               .md-layout-item
                 span 56 2 24055200
                 br
