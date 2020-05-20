@@ -1,5 +1,5 @@
 <template lang='pug'>
-  .content(sticky-container)
+  #top.content(sticky-container)
     Header
     Body
 </template>
@@ -10,12 +10,19 @@
 <script>
 import Header from '@/components/Header.vue'
 import Body from '@/components/Body.vue'
+import {scroller} from 'vue-scrollto/src/scrollTo'
+
+const firstScrollTo = scroller()
+
 
 export default {
   name: 'home',
   components: {
     Header,
     Body
+  },
+  mounted() {
+    firstScrollTo('#app')
   }
 }
 </script>

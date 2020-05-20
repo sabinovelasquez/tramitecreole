@@ -18,26 +18,24 @@
           md-card
             md-card-area
               md-card-media
-                img(src="@/assets/img/afc-1.jpg" alt="People")
+                img(src="@/assets/img/afc-1.jpg" alt="AFC")
               md-card-header
                 .md-title Koleksyon asirans chomaj
                 .md-subhead Cobro del seguro de cesantía.
               md-card-content Lorem ipsum dolor sit amet, consectetur adipisicing elit. Optio itaque ea, nostrum odio. Dolores, sed accusantium quasi non, voluptas eius illo quas, saepe voluptate pariatur in deleniti minus sint. Excepturi.
-            md-card-actions(md-alignment="left")
-              md-button.md-raised.md-primary(to='/') Action
-              md-button.md-raised.md-primary(to='detail') Action
+            md-card-actions(md-alignment='left')
+              md-button.md-raised.md-primary(to='afc') Action
         .md-layout-item.md-small-size-100.md-size-50
           md-card
             md-card-area
               md-card-media
-                img(src="@/assets/img/afc-1.jpg" alt="People")
+                img(src="@/assets/img/bnde-1.jpg" alt="BNE")
               md-card-header
                 .md-title Koleksyon asirans chomaj
                 .md-subhead Cobro del seguro de cesantía.
               md-card-content Lorem ipsum dolor sit amet, consectetur adipisicing elit. Optio itaque ea, nostrum odio. Dolores, sed accusantium quasi non, voluptas eius illo quas, saepe voluptate pariatur in deleniti minus sint. Excepturi.
-            md-card-actions(md-alignment="left")
-              md-button.md-raised.md-primary(to='/') Action
-              md-button.md-raised.md-primary(to='detail') Action
+            md-card-actions(md-alignment='left')
+              md-button.md-raised.md-primary(to='bne') Action
 </template>
 
 <script>

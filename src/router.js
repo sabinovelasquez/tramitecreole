@@ -1,7 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
-import Detail from './views/Detail.vue'
+import Afc from './views/Afc.vue'
+import Bne from './views/Bne.vue'
 
 Vue.use(Router)
 
@@ -13,9 +14,14 @@ export default new Router({
       component: Home
     },
     {
-      path: '/detail',
-      name: 'detail',
-      component: Detail
+      path: '/afc',
+      name: 'afc',
+      component: Afc
+    },
+    {
+      path: '/bne',
+      name: 'bne',
+      component: Bne
     }
   ]
 })

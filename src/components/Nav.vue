@@ -8,8 +8,8 @@
           md-button.md-icon-button(md-menu-trigger)
             img(svg-inline, src='@/assets/img/menu.svg', alt='Menu')
           md-menu-content.mobile-menu
-        md-button(to='/') Home
-        md-button(to='contact') Contacto
+        //- md-button(to='/') Home
+        //- md-button(to='contact') Contacto
         //- md-button.md-xsmall-hide(v-for='item in main_menu[lang]', :key='item.id', v-scroll-to='`#${item.link}`') {{item.title}}
       .langs.right
         span
@@ -19,8 +19,8 @@
             img(:src='"@/assets/img/icon-" + lang + ".png"', alt='Spanish')
           md-menu-content(style='z-index:9999')
             md-list-item(@click='changeLang("ch")', disabled)
-              img.disabled(src='@/assets/img/icon-ch.png', alt='Chinese')
-              small.disabled.mar-left Chinese
+              img.disabled(src='@/assets/img/icon-es.png', alt='Español')
+              small.disabled.mar-left Español
             md-list-item(@click='changeLang("cr")')
               img(src='@/assets/img/icon-cr.png', alt='Spanish')
               small.mar-left Creole

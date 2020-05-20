@@ -179,8 +179,14 @@
 </template>
 
 <script>
+import {scroller} from 'vue-scrollto/src/scrollTo'
+const firstScrollTo = scroller()
+
 export default {
-  name: 'Detail'
+  name: 'Afc',
+  mounted() {
+    firstScrollTo('#app')
+  }
 }
 </script>
 

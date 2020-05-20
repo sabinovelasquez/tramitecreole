@@ -1,6 +1,7 @@
 <template lang='pug'>
   section
-    .all(v-if='!loading')
+    //- .all(v-if='!loading')
+    .all
       header.container
         .md-layout.md-gutter.md-alignment-center-center
           .md-layout-item.md-small-size-100.md-size-50
@@ -18,16 +19,16 @@
           .md-layout-item.md-small-size-100.md-size-50
             p
               img.logo-text(svg-inline, src='@/assets/img/people.svg', alt='People')
-    .md-layout.md-alignment-center-center.loading(v-else)
-      .main-loading
-        img(svg-inline, src='@/assets/img/people.svg', alt='Logo')
-        h2.main-loading.niconne {{ lang == 'en' ? 'Cargando...' : 'Loading...' }}
+    //- .md-layout.md-alignment-center-center.loading(v-else)
+    //-   .main-loading
+    //-     img(svg-inline, src='@/assets/img/people.svg', alt='Logo')
+    //-     h2.main-loading.niconne {{ lang == 'en' ? 'Cargando...' : 'Loading...' }}
         
   
 </template>
 
 <script>
-import { db } from '@/firebase'
+// import { db } from '@/firebase'
 import { mapActions, mapGetters } from 'vuex'
 
 export default {
@@ -40,15 +41,15 @@ export default {
     }
   },
   mounted() {
-    this.$ga.page('Landing')
-    this.$bind('main_title', db.collection('general').doc('main-title'))
-    this.$bind('main_menu', db.collection('general').doc('main-menu'))
-      .then( () => {
-        this.loading = false
-      })
-      .catch((error) => {
-        this.error = error
-      })
+    // this.$ga.page('Landing')
+    // // this.$bind('main_title', db.collection('general').doc('main-title'))
+    // // this.$bind('main_menu', db.collection('general').doc('main-menu'))
+    //   .then( () => {
+    //     this.loading = false
+    //   })
+    //   .catch((error) => {
+    //     this.error = error
+    //   })
   },
   computed: {
     ...mapGetters('lang', ['lang'])
