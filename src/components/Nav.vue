@@ -21,12 +21,9 @@
             md-list-item(@click='changeLang("ch")', disabled)
               img.disabled(src='@/assets/img/icon-ch.png', alt='Chinese')
               small.disabled.mar-left Chinese
-            md-list-item(@click='changeLang("en")')
-              img(src='@/assets/img/icon-en.png', alt='English')
-              small.mar-left English
-            md-list-item(@click='changeLang("es")')
-              img(src='@/assets/img/icon-es.png', alt='Spanish')
-              small.mar-left Spanish
+            md-list-item(@click='changeLang("cr")')
+              img(src='@/assets/img/icon-cr.png', alt='Spanish')
+              small.mar-left Creole
 </template>
 
 <script>

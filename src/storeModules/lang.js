@@ -1,7 +1,7 @@
 
 const LangModule = {
   state: {
-    lang: 'es'
+    lang: 'cr'
   },
   actions: {
     setLang ({commit}, {lang}) {

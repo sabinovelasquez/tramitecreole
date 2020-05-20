@@ -20,8 +20,8 @@
               img.logo-text(svg-inline, src='@/assets/img/people.svg', alt='People')
     .md-layout.md-alignment-center-center.loading(v-else)
       .main-loading
-        img(svg-inline, src='@/assets/img/cherry-logo.svg', alt='Logo')
-        h2.main-loading.niconne {{ lang == 'en' ? 'Cargando info...' : 'Loading info...' }}
+        img(svg-inline, src='@/assets/img/people.svg', alt='Logo')
+        h2.main-loading.niconne {{ lang == 'en' ? 'Cargando...' : 'Loading...' }}
         
   
 </template>
