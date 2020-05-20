@@ -1,44 +1,26 @@
 <template lang='pug'>
   section
     .all(v-if='!loading')
-      header.bg
-        .container.md-layout.md-alignment-center
-          .logo
-            img.main-logo(svg-inline, src='@/assets/img/mainLogo.svg', alt='Southern Lands')
-            //- img.logo-text(svg-inline, src='@/assets/img/southernlands-logo-text.svg', alt='Southern Lands')
-        .container.md-layout.md-alignment-center
-          p.tagline.niconne {{main_title[lang]}}
-      .nav-bar(v-sticky, sticky-offset='{top: 0}')
-        .container
-          md-menu.menu(md-size='small')
-            md-button.md-xsmall-hide.md-icon-button(md-menu-trigger, v-scroll-to='"#app"')
-              img.logo-menu(svg-inline, src='@/assets/img/cherry-logo.svg')
-            md-menu.showMobile
-              md-button.md-icon-button(md-menu-trigger)
-                img(svg-inline, src='@/assets/img/menu.svg', alt='Menu')
-              md-menu-content.mobile-menu
-                img(svg-inline, src='@/assets/img/cherry-logo.svg', alt='Southern Lands', style='margin:10px auto;width:20px;')
-                md-button(v-for='item in main_menu[lang]', :key='item.id', v-scroll-to='`#${item.link}`') {{item.title}}
-            md-button.md-xsmall-hide(v-for='item in main_menu[lang]', :key='item.id', v-scroll-to='`#${item.link}`') {{item.title}}
-          .langs.right
-            span
-              small {{lang == 'es' ? 'Idioma' : 'Language'}}:
-            md-menu.mar-left(md-size='small', :md-close-on-click='true')
-              md-button.md-icon-button(md-menu-trigger)
-                img(:src='"@/assets/img/icon-" + lang + ".png"', alt='Spanish')
-              md-menu-content(style='z-index:9999')
-                md-list-item(@click='changeLang("ch")', disabled)
-                  img.disabled(src='@/assets/img/icon-ch.png', alt='Chinese')
-                  small.disabled.mar-left Chinese
-                md-list-item(@click='changeLang("en")')
-                  img(src='@/assets/img/icon-en.png', alt='English')
-                  small.mar-left English
-                md-list-item(@click='changeLang("es")')
-                  img(src='@/assets/img/icon-es.png', alt='Spanish')
-                  small.mar-left Spanish
+      header.container
+        .md-layout.md-gutter.md-alignment-center-center
+          .md-layout-item.md-small-size-100.md-size-50
+            .info
+              h1.md-display-1.md-accent
+                | Nou ede ou konprann pwosedi yo nan eta a nan Chili
+              h2.md-headline
+                | Te ayudamos a entender los trámites del estado de Chile
+              p.md-body-1
+                | Sou sit sa a nou ede ou konprann diferan pwosedi eta chilyen an, nou tradui yo nan kreol e nou eksplike etap pa etap pou chak moun.
+              p.md-body-2
+                | En este sitio te ayudamos a comprender los diferentes trámites del estado Chileno, los tradujimos a Créole y te explicamos el paso a paso para cada uno.
+              p
+                md-button.md-raised.md-primary Enskri
+          .md-layout-item.md-small-size-100.md-size-50
+            p
+              img.logo-text(svg-inline, src='@/assets/img/people.svg', alt='People')
     .md-layout.md-alignment-center-center.loading(v-else)
       .main-loading
-        img(svg-inline, src='@/assets/img/cherry-logo.svg', alt='Southern Lands')
+        img(svg-inline, src='@/assets/img/cherry-logo.svg', alt='Logo')
         h2.main-loading.niconne {{ lang == 'en' ? 'Cargando info...' : 'Loading info...' }}
         
   
@@ -82,76 +64,4 @@ export default {
 
 <style scoped lang='scss'>
 @import '@/assets/global.scss';
-.showMobile{
-  @media (min-width: 600px){
-    display: none;
-  }
-}
-.mobile-menu{
-  z-index: 999;
-}
-.disabled{
-  opacity: .5;
-  cursor: not-allowed;
-}
-.loading{
-  position: fixed;
-  width: 100%;
-  min-height: 100vh;
-  background: url('../assets/img/simple_dashed.png') repeat;
-  top: 0;
-  z-index: 999;
-  .main-loading{
-    color: $primary-color;
-    font-size: 24px;
-    text-align: center;
-  }
-}
-.nav-bar{
-  background-color: #1A1A1A;
-  .menu{
-    .md-button{
-      margin-left: 12px;
-      @media (max-width: 960px){
-        margin-left: 0;
-      }
-    }
-  }
-}
-header.bg{
-  height: 360px;
-  background: linear-gradient(to bottom, rgba(0,0,0,.9), rgba(0,0,0,0) 360px), url('../assets/img/bg-1.jpg');
-  background-size: cover;
-  background-position: center center;
-  .logo {
-    margin: 80px auto 0;
-    width: 180px;
-    text-align: center;
-    .logo-cherry{
-      width: 40px;
-    }
-    .logo-text{
-      margin-top: 8px;
-      width: 100%;
-    }
-  }
-  .tagline{
-    text-shadow: -1px 1px 0px rgba(0, 0, 0, 1);
-    font-size: 24px;
-  }
-}
-.langs{
-  line-height: 36px;
-  a{
-    cursor: pointer;
-    &.disabled{
-      cursor: not-allowed;
-    }
-  }
-}
-img.logo-menu{
-    width: 18px;
-    margin-left: -3px;
-    margin-bottom: 9px;
-  }
 </style>

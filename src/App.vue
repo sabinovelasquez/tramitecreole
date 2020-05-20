@@ -1,17 +1,17 @@
 <template lang='pug'>
   #app
-    Home
+    Nav
+    router-view
+    Footer
 </template>
-
-<style lang='scss'>
-</style>
-
 <script>
-import Home from '@/views/Home.vue'
+import Nav from '@/components/Nav.vue'
+import Footer from '@/components/Footer.vue'
 
 export default {
   components: {
-    Home
+    Nav,
+    Footer
   }
 }
 </script>

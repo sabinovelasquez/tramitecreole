@@ -1,21 +1,18 @@
 <template lang='pug'>
   .content(sticky-container)
-    Header
-    Body
+    Detail
 </template>
 
 <style lang='scss'>
 </style>
 
 <script>
-import Header from '@/components/Header.vue'
-import Body from '@/components/Body.vue'
+import Detail from '@/components/Detail.vue'
 
 export default {
-  name: 'home',
+  name: 'detail',
   components: {
-    Header,
-    Body
+    Detail
   }
 }
 </script>

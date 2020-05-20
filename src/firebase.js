@@ -5,11 +5,11 @@ import defaultConfig from './config/defaultConfig'
 export const db = firebase
   .initializeApp({
     apiKey: defaultConfig.FIREBASE_API_KEY,
-    authDomain: "southernlands.firebaseapp.com",
-    databaseURL: "https://southernlands.firebaseio.com",
-    projectId: "southernlands",
-    storageBucket: "southernlands.appspot.com",
-    messagingSenderId: "482315407690",
-    appId: "1:482315407690:web:c0c44da93e932fb4f371b3",
-    measurementId: "G-X2VYBEMCN7"
+    authDomain: "tramite-creole.firebaseapp.com",
+    databaseURL: "https://tramite-creole.firebaseio.com",
+    projectId: "tramite-creole",
+    storageBucket: "tramite-creole.appspot.com",
+    messagingSenderId: "197341275866",
+    appId: "1:197341275866:web:2fb9797cf7288a24e7e7e3",
+    measurementId: "G-3GPZTGPP9H"
 }).firestore()

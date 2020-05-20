@@ -5,16 +5,15 @@
 @import '~vue-material/dist/vue-material.min.css';
 @import '~vue-material/dist/theme/engine';
 
-$primary-color: #EDD12E;
-$secondary-color: #ed3156;
-$accent: rgb(36, 36, 36);
+$primary-color: #E65050;
+$secondary-color: #1F334E;
+$accent: #E7F1FD;
 $dark-grey: #1E1E1E;
 
 @include md-register-theme('default', (
   primary: $primary-color,
   secondary: $secondary-color,
-  accent: $accent,
-  theme: dark
+  accent: $accent
 ));
 
 @import "~vue-material/dist/theme/all";
@@ -61,5 +60,65 @@ h1, h2, h3, h4, h5{
   }
   @media (min-width: 1200px){
     width: 1200px;
+  }
+}
+.text-primary{
+  color: $primary-color
+}
+.text-secondary{
+  color: $secondary-color
+}
+.bg-secondary{
+  background-color: $secondary-color;
+}
+.bg-primary{
+  background-color: $primary-color;
+}
+.bg-accent{
+  background-color: $accent;
+}
+.showMobile{
+  @media (min-width: 600px){
+    display: none;
+  }
+}
+.mobile-menu{
+  z-index: 999;
+}
+.disabled{
+  opacity: .5;
+  cursor: not-allowed;
+}
+.loading{
+  position: fixed;
+  width: 100%;
+  min-height: 100vh;
+  background: url('../assets/img/simple_dashed.png') repeat;
+  top: 0;
+  z-index: 999;
+  .main-loading{
+    color: $primary-color;
+    font-size: 24px;
+    text-align: center;
+  }
+}
+.nav-bar{
+  background-color: white;
+  .menu{
+    .md-button{
+      margin-left: 12px;
+      @media (max-width: 960px){
+        margin-left: 0;
+      }
+    }
+  }
+}
+.langs{
+  line-height: 36px;
+  a{
+    cursor: pointer;
+    &.disabled{
+      cursor: not-allowed;
+    }
   }
 }
