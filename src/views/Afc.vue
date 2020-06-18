@@ -15,13 +15,13 @@
           .md-layout-item.md-small-size-50.md-size-25
             .md-layout.md-alignment-center-center
               .md-layout-item.md-size-25
-                font-awesome-icon(icon='phone')
+                font-awesome-icon.text-primary(icon='phone', size='3x')
               .md-layout-item
                 span 800 800 232
           .md-layout-item.md-small-size-50.md-size-25
             .md-layout.md-alignment-center-center
               .md-layout-item.md-size-25
-                font-awesome-icon(icon='mobile-alt')
+                font-awesome-icon.text-primary(icon='mobile-alt', size='3x')
               .md-layout-item
                 span 2 2373 5060
                 br
@@ -29,7 +29,7 @@
           .md-layout-item.md-small-size-50.md-size-25
             .md-layout.md-alignment-center-center
               .md-layout-item.md-size-25
-                font-awesome-icon(icon='map-marker-alt')
+                font-awesome-icon.text-primary(icon='map-marker-alt', size='3x')
               .md-layout-item
                 span Biwo nan tout peyi a
     .container
@@ -44,7 +44,7 @@
         .md-layout-item.md-small-size-100
           .md-layout
             .md-layout-item.md-size-15
-              font-awesome-icon.mar-top(icon='building')
+              font-awesome-icon.text-primary.mar-top(icon='building', size='3x')
             .md-layout-item.md-size-85
               h4.text-secondary.mb-body-2 Nan nenpot biwo AFC
               p.text-secondary ¿Ki dokiman ou bezwen ?
@@ -56,7 +56,7 @@
         .md-layout-item.md-small-size-100
           .md-layout
             .md-layout-item.md-size-15
-              font-awesome-icon.mar-top(icon='laptop')
+              font-awesome-icon.text-primary.mar-top(icon='laptop', size='3x')
             .md-layout-item.md-size-85
               h4.text-secondary.mb-body-2 Nan biwo virtyèl www.afc.cl
               p Avek Rut pa´w e modpas ou pral ka fè pwosesis benefis la. Antre nan biwo virtyèl e antre anko nan  “Cobro del Seguro de Cesantía”.

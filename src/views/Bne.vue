@@ -15,14 +15,14 @@
           .md-layout-item.md-small-size-50.md-size-25
             .md-layout.md-alignment-center-center
               .md-layout-item.md-size-25
-                font-awesome-icon.fa-big(icon='envelope')
+                font-awesome-icon.text-primary(icon='envelope', size='3x')
               .md-layout-item
                 span
                   a(href='mailto:soport@bne') soport@bne
           .md-layout-item.md-small-size-50.md-size-25
             .md-layout.md-alignment-center-center
               .md-layout-item.md-size-25
-                font-awesome-icon.fa-big(icon='mobile-alt')
+                font-awesome-icon.text-primary(icon='mobile-alt', size='3x')
               .md-layout-item
                 span 56 2 24055200
                 br
@@ -34,7 +34,7 @@
           p.md-body-1 Pasos a seguir
       .md-layout.md-gutter.md-alignment-center-center
         .md-layout-item.md-size-5.md-small-size-20
-          font-awesome-icon.fa-big(icon='laptop')
+          font-awesome-icon.text-primary(icon='laptop', size='3x')
         .md-layout-item.md-size-95.md-small-size-80
           h3 Pwosedi sou entènèt
 
