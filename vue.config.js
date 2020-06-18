@@ -7,6 +7,7 @@ module.exports = {
 				.loader("vue-svg-inline-loader")
 				.options({ /* ... */ });
 	},
+
 	configureWebpack: config => {
     if (process.env.development) {
       config.plugins.push(new webpack.DefinePlugin({
@@ -14,6 +15,7 @@ module.exports = {
       }))
     }
   },
+
   "transpileDependencies": [
     "vuetify"
   ]

@@ -4,7 +4,7 @@
   section
     .head-title
       .container
-        h2.md-headline Koleksyon asirans chomaj
+        h2.md-headline Peyiman asirans chomaj
         h3.md-body-1 Cobro del seguro de cesantía
     .head-subline
       .container
@@ -15,13 +15,13 @@
           .md-layout-item.md-small-size-50.md-size-25
             .md-layout.md-alignment-center-center
               .md-layout-item.md-size-25
-                md-icon.md-primary.md-size-2x phone
+                font-awesome-icon(icon='phone')
               .md-layout-item
                 span 800 800 232
           .md-layout-item.md-small-size-50.md-size-25
             .md-layout.md-alignment-center-center
               .md-layout-item.md-size-25
-                md-icon.md-primary.md-size-2x phone_android
+                font-awesome-icon(icon='mobile-alt')
               .md-layout-item
                 span 2 2373 5060
                 br
@@ -29,13 +29,13 @@
           .md-layout-item.md-small-size-50.md-size-25
             .md-layout.md-alignment-center-center
               .md-layout-item.md-size-25
-                md-icon.md-primary.md-size-2x location_on
+                font-awesome-icon(icon='map-marker-alt')
               .md-layout-item
-                span Branch nan tout peyi a
+                span Biwo nan tout peyi a
     .container
       .md-layout.md-gutter
         .md-layout-item
-          h2.md-headline Etap sa yo swiv
+          h2.md-headline Etap pou swiv
           p.md-body-1 Pasos a seguir
 
       h3.text-primary 1. Koman ak ki kotè nou ka mande asirans chomaj
@@ -44,7 +44,7 @@
         .md-layout-item.md-small-size-100
           .md-layout
             .md-layout-item.md-size-15
-              md-icon.mar-top.md-primary.md-size-2x business
+              font-awesome-icon.mar-top(icon='building')
             .md-layout-item.md-size-85
               h4.text-secondary.mb-body-2 Nan nenpot biwo AFC
               p.text-secondary ¿Ki dokiman ou bezwen ?
@@ -56,7 +56,7 @@
         .md-layout-item.md-small-size-100
           .md-layout
             .md-layout-item.md-size-15
-              md-icon.mar-top.md-primary.md-size-2x laptop
+              font-awesome-icon.mar-top(icon='laptop')
             .md-layout-item.md-size-85
               h4.text-secondary.mb-body-2 Nan biwo virtyèl www.afc.cl
               p Avek Rut pa´w e modpas ou pral ka fè pwosesis benefis la. Antre nan biwo virtyèl e antre anko nan  “Cobro del Seguro de Cesantía”.

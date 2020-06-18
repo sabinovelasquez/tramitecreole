@@ -16,9 +16,11 @@ export default {
   //     footer: {}
   //   }
   // },
+
   // computed: {
   //   ...mapGetters('lang', ['lang'])
   // },
+
   // mounted() {
   //   this.$bind('footer', db.collection('general').doc('footer'))
   //     .then( () => {

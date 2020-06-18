@@ -8,9 +8,14 @@ import Sticky from 'vue-sticky-directive'
 import VueScrollTo from 'vue-scrollto'
 import defaultConfig from './config/defaultConfig'
 import '@/assets/global.scss'
-
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { firestorePlugin } from 'vuefire'
 
+import { faPhone, faMobileAlt, faMapMarkerAlt, faBuilding, faLaptop, faEnvelope } from '@fortawesome/free-solid-svg-icons'
+library.add(faPhone, faMobileAlt, faMapMarkerAlt, faBuilding, faLaptop, faEnvelope)
+
+Vue.component('font-awesome-icon', FontAwesomeIcon)
 Vue.use(VueAnalytics, { id: defaultConfig.ANALYTICS_ID })
 Vue.use(VueMaterial)
 Vue.use(VueScrollTo, {offset: -70})

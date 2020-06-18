@@ -15,14 +15,14 @@
           .md-layout-item.md-small-size-50.md-size-25
             .md-layout.md-alignment-center-center
               .md-layout-item.md-size-25
-                md-icon.md-primary.md-size-2x mail
+                font-awesome-icon.fa-big(icon='envelope')
               .md-layout-item
                 span
                   a(href='mailto:soport@bne') soport@bne
           .md-layout-item.md-small-size-50.md-size-25
             .md-layout.md-alignment-center-center
               .md-layout-item.md-size-25
-                md-icon.md-primary.md-size-2x phone_android
+                font-awesome-icon.fa-big(icon='mobile-alt')
               .md-layout-item
                 span 56 2 24055200
                 br
@@ -30,11 +30,11 @@
     .container
       .md-layout.md-gutter
         .md-layout-item
-          h2.md-headline Etap sa yo swiv
+          h2.md-headline Etap pou swiv
           p.md-body-1 Pasos a seguir
       .md-layout.md-gutter.md-alignment-center-center
         .md-layout-item.md-size-5.md-small-size-20
-          md-icon.md-primary.md-size-2x laptop
+          font-awesome-icon.fa-big(icon='laptop')
         .md-layout-item.md-size-95.md-small-size-80
           h3 Pwosedi sou entènèt
 

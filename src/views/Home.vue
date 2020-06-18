@@ -21,6 +21,7 @@ export default {
     Header,
     Body
   },
+
   mounted() {
     firstScrollTo('#app')
   }

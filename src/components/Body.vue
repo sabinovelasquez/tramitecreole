@@ -2,7 +2,8 @@
 //- .cont(v-if='!loading')
 .cont
   .banner
-    .container Banner content
+    .container
+      //- | Banner content
   section
     .container
       .md-layout.md-gutter.md-alignment-center-center
@@ -20,22 +21,22 @@
               md-card-media
                 img(src="@/assets/img/afc-1.jpg" alt="AFC")
               md-card-header
-                .md-title Koleksyon asirans chomaj
+                .md-title Peyiman asirans chomaj
                 .md-subhead Cobro del seguro de cesantía.
-              md-card-content Lorem ipsum dolor sit amet, consectetur adipisicing elit. Optio itaque ea, nostrum odio. Dolores, sed accusantium quasi non, voluptas eius illo quas, saepe voluptate pariatur in deleniti minus sint. Excepturi.
+              //- md-card-content Lorem ipsum dolor sit amet, consectetur adipisicing elit. Optio itaque ea, nostrum odio. Dolores, sed accusantium quasi non, voluptas eius illo quas, saepe voluptate pariatur in deleniti minus sint. Excepturi.
             md-card-actions(md-alignment='left')
-              md-button.md-raised.md-primary(to='afc') Action
+              md-button.md-raised.md-primary(to='afc') Wè
         .md-layout-item.md-small-size-100.md-size-50
           md-card
             md-card-area
               md-card-media
                 img(src="@/assets/img/bnde-1.jpg" alt="BNE")
               md-card-header
-                .md-title Koleksyon asirans chomaj
-                .md-subhead Cobro del seguro de cesantía.
-              md-card-content Lorem ipsum dolor sit amet, consectetur adipisicing elit. Optio itaque ea, nostrum odio. Dolores, sed accusantium quasi non, voluptas eius illo quas, saepe voluptate pariatur in deleniti minus sint. Excepturi.
+                .md-title Enskripsyon nan Echanj Travay Nasyonal lan
+                .md-subhead Inscripción en la Bolsa Nacional de Empleo
+              //- md-card-content Lorem ipsum dolor sit amet, consectetur adipisicing elit. Optio itaque ea, nostrum odio. Dolores, sed accusantium quasi non, voluptas eius illo quas, saepe voluptate pariatur in deleniti minus sint. Excepturi.
             md-card-actions(md-alignment='left')
-              md-button.md-raised.md-primary(to='bne') Action
+              md-button.md-raised.md-primary(to='bne') Wè
 </template>
 
 <script>

@@ -37,9 +37,11 @@ export default {
       loading: true
     }
   },
+
   computed: {
     ...mapGetters('lang', ['lang'])
   },
+
   methods: {
     ...mapActions('lang', ['setLang']),
     changeLang(val) {
