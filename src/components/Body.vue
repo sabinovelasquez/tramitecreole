@@ -16,7 +16,7 @@
     .container  
       .md-layout.md-gutter.md-alignment-center-center
         .md-layout-item.md-small-size-100.md-size-50
-          md-card
+          md-card.mar-top
             md-card-area
               md-card-media
                 img(src="@/assets/img/afc-1.jpg" alt="AFC")
@@ -26,8 +26,9 @@
               //- md-card-content Lorem ipsum dolor sit amet, consectetur adipisicing elit. Optio itaque ea, nostrum odio. Dolores, sed accusantium quasi non, voluptas eius illo quas, saepe voluptate pariatur in deleniti minus sint. Excepturi.
             md-card-actions(md-alignment='left')
               md-button.md-raised.md-primary(to='afc') Wè
+
         .md-layout-item.md-small-size-100.md-size-50
-          md-card
+          md-card.mar-top
             md-card-area
               md-card-media
                 img(src="@/assets/img/bnde-1.jpg" alt="BNE")

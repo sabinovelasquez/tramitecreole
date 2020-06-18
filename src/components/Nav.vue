@@ -12,8 +12,6 @@
         //- md-button(to='contact') Contacto
         //- md-button.md-xsmall-hide(v-for='item in main_menu[lang]', :key='item.id', v-scroll-to='`#${item.link}`') {{item.title}}
       .langs.right
-        span
-          small {{lang == 'es' ? 'Idioma' : 'Language'}}:
         md-menu.mar-left(md-size='small', :md-close-on-click='true')
           md-button.md-icon-button(md-menu-trigger)
             img(:src='"@/assets/img/icon-" + lang + ".png"', alt='Spanish')
