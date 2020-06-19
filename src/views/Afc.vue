@@ -166,7 +166,7 @@
       md-divider
 
       h3.text-primary 7. Branch yo
-      p.text-primary Traducir?
+      //- p.text-primary Traducir?
       p
         | Orè atansyon
         br
