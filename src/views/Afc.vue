@@ -2,8 +2,8 @@
 //- .cont(v-if='!loading')
 .cont
   section
-    .head-title
-      .container
+    .head-title(:style="{backgroundImage: 'url('+require('@/assets/img/afc-1.jpg')+')'}")
+      .container.over-bg
         h2.md-headline Peyiman asirans chomaj
         h3.md-body-1 Cobro del seguro de cesantía
     .head-subline
@@ -109,8 +109,7 @@
 
       md-divider
 
-      h3.text-primary 4. ¿Ki lè ou pral resevwa premye peyman Asirans chomaj
-      p.text-primary (Cesantía)?
+      h3.text-primary 4. ¿Ki lè ou pral resevwa premye peyman Asirans chomaj (Cesantía)?
       p Premye peyman a pral fe aprè 30 jou kontra travay ou finì e selon dat ki tou pre nan kalendriye peyman AFC yo.
       .md-layout.md-alignment-center-center
         .md-layout-item.md-size-50.md-small-size-90
@@ -134,7 +133,6 @@
       md-divider
 
       h3.text-primary 5. Pou fe pwosesis pi vit e genyen enfomasyon sou Asirans Chomaj (Cesantía), konsidere sa a:
-      p.text-primary Traducir?
       ul
         li Fè konfimasyon ore atansyon e adrès biwo yo.
         li Prefere ore yo apre midi a avek mwens piblik : depi Lendi a Jedi ant 14 epi 16 è . Pa ale jou Lendi
@@ -145,7 +143,6 @@
       md-divider
 
       h3.text-primary 6. Si ou pa gen papye finikito, ou ka presante dokiman sa yo:
-      p.text-primary Traducir?
       ol
         li Let revokasyon ki anplwayè te fe. 
         li Dokiman: “Acta de comparecencia o conciliación” devan Enspeksyon Travay avek ako travayè ak anplwayè sou coz ak dat ki fen kontra travay. 
@@ -166,7 +163,6 @@
       md-divider
 
       h3.text-primary 7. Branch yo
-      //- p.text-primary Traducir?
       p
         | Orè atansyon
         br
@@ -192,15 +188,4 @@ export default {
 
 <style scoped lang='scss'>
 @import '@/assets/global.scss';
-
-.mar-top{
-  margin-top: 15px;
-}
-.head-title{
-  color: white;
-  background-color: rgba($secondary-color, .8);
-}
-.head-subline{
-  background-color: $accent;
-}
 </style>

@@ -12,8 +12,29 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { firestorePlugin } from 'vuefire'
 
-import { faPhone, faMobileAlt, faMapMarkerAlt, faBuilding, faLaptop, faEnvelope } from '@fortawesome/free-solid-svg-icons'
-library.add(faPhone, faMobileAlt, faMapMarkerAlt, faBuilding, faLaptop, faEnvelope)
+import { 
+  faPhone,
+  faMobileAlt,
+  faMapMarkerAlt,
+  faBuilding,
+  faLaptop,
+  faEnvelope } from '@fortawesome/free-solid-svg-icons'
+import {
+  faFacebook,
+  faInstagram,
+  faTwitter  
+} from '@fortawesome/free-brands-svg-icons'
+
+library.add(
+  faPhone,
+  faMobileAlt,
+  faMapMarkerAlt,
+  faBuilding,
+  faLaptop,
+  faEnvelope,
+  faFacebook,
+  faInstagram,
+  faTwitter)
 
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 Vue.use(VueAnalytics, { id: defaultConfig.ANALYTICS_ID })

@@ -2,8 +2,8 @@
 //- .cont(v-if='!loading')
 .cont
   section
-    .head-title
-      .container
+    .head-title(:style="{backgroundImage: 'url('+require('@/assets/img/bnde-1.jpg')+')'}")
+      .container.over-bg
         h2.md-headline Enskripsyon nan Echanj Travay Nasyonal la
         h3.md-body-1 Inscripción en la Bolsa Nacional de Empleo
     .head-subline
@@ -26,7 +26,7 @@
               .md-layout-item
                 span 56 2 24055200
                 br
-                span Atención de lunes a domingo, de 07:00 a 22:00 horas
+                small Atansyon soti nan Lendi a Dimanch, ki soti nan 07:00 a 22:00
     .container
       .md-layout.md-gutter
         .md-layout-item
@@ -59,6 +59,8 @@
 
       h3.text-primary 5. Ka pwodwi otomatikman pa chanje yon koup la jaden.
       p Nan meni an navigasyon ou pral jwenn seksyon an rechèch JOB, kote ou ka fè rechèch pa kalite travay.
+      p
+        img(src="@/assets/img/bne-5.png" alt="BNE")
       md-divider
 
       h3.text-primary 6. Aplike
